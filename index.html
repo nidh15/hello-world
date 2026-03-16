@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 10 Songs in the World - March 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(90deg, #f7971e, #ffd200);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #aaa;
+        }
+
+        .song-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .song-card {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 20px 24px;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .song-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .rank {
+            font-size: 2rem;
+            font-weight: 800;
+            width: 56px;
+            text-align: center;
+            flex-shrink: 0;
+            background: linear-gradient(180deg, #ffd200, #f7971e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .song-info {
+            margin-left: 20px;
+            flex: 1;
+        }
+
+        .song-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .song-artist {
+            font-size: 0.95rem;
+            color: #ccc;
+        }
+
+        .song-genre {
+            margin-left: auto;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: #ffd200;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .song-card {
+                padding: 16px;
+            }
+
+            .rank {
+                font-size: 1.5rem;
+                width: 40px;
+            }
+
+            .song-title {
+                font-size: 1.05rem;
+            }
+
+            .song-genre {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Top 10 Songs in the World</h1>
+        <p>Billboard Hot 100 &mdash; March 2026</p>
+    </header>
+
+    <div class="song-list">
+        <div class="song-card">
+            <div class="rank">1</div>
+            <div class="song-info">
+                <div class="song-title">I Just Might</div>
+                <div class="song-artist">Bruno Mars</div>
+            </div>
+            <div class="song-genre">Disco-Pop</div>
+        </div>
+
+        <div class="song-card">
+            <div class="rank">2</div>
+            <div class="song-info">
+                <div class="song-title">Choosin' Texas</div>
+                <div class="song-artist">Ella Langley</div>
+            </div>
+            <div class="song-genre">Country</div>
+        </div>
+
+        <div class="song-card">
+            <div class="rank">3</div>
+            <div class="song-info">
+                <div class="song-title">The Fate of Ophelia</div>
+                <div class="song-artist">Taylor Swift</div>
+            </div>
+            <div class="song-genre">Pop</div>
+        </div>
+
+        <div class="song-card">
+            <div class="rank">4</div>
+            <div class="song-info">
+                <div class="song-title">Opalite</div>
+                <div class="song-artist">Taylor Swift</div>
+            </div>
+            <div class="song-genre">Pop</div>
+        </div>
+
+        <div class="song-card">
+            <div class="rank">5</div>
+            <div class="song-info">
+                <div class="song-title">DtMF</div>
+                <div class="song-artist">Bad Bunny</div>
+            </div>
+            <div class="song-genre">Latin / Rap</div>
+        </div>
+
+        <div class="song-card">
+            <div class="rank">6</div>
+            <div class="song-info">
+                <div class="song-title">Aperture</div>
+                <div class="song-artist">Harry Styles</div>
+            </div>
+            <div class="song-genre">Pop</div>
+        </div>
+
+        <div class="song-card">
+            <div class="rank">7</div>
+            <div class="song-info">
+                <div class="song-title">Back to Friends</div>
+                <div class="song-artist">sombr</div>
+            </div>
+            <div class="song-genre">Indie Pop</div>
+        </div>
+
+        <div class="song-card">
+            <div class="rank">8</div>
+            <div class="song-info">
+                <div class="song-title">Folded</div>
+                <div class="song-artist">Kehlani</div>
+            </div>
+            <div class="song-genre">R&B</div>
+        </div>
+
+        <div class="song-card">
+            <div class="rank">9</div>
+            <div class="song-info">
+                <div class="song-title">Ordinary</div>
+                <div class="song-artist">Caleb Warren</div>
+            </div>
+            <div class="song-genre">Pop</div>
+        </div>
+
+        <div class="song-card">
+            <div class="rank">10</div>
+            <div class="song-info">
+                <div class="song-title">Man I Need</div>
+                <div class="song-artist">Ethan Dean</div>
+            </div>
+            <div class="song-genre">Pop / Soul</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Data sourced from <a href="https://www.billboard.com/charts/hot-100/" target="_blank">Billboard Hot 100</a> &mdash; March 2026</p>
+    </footer>
+</body>
+</html>
