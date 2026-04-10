@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Loader2, Stethoscope } from "lucide-react";
+import { Loader2, Stethoscope, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -68,15 +68,25 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="container flex min-h-[calc(100vh-10rem)] max-w-md items-center py-12">
-      <Card className="w-full">
+    <div className="relative flex min-h-[calc(100vh-10rem)] items-center justify-center overflow-hidden px-4 py-12">
+      {/* Background */}
+      <div className="absolute inset-0 -z-10 bg-dot-grid opacity-30 dark:opacity-10" />
+      <div className="absolute -left-40 -top-40 -z-10 h-80 w-80 rounded-full bg-teal-200/30 blur-3xl dark:bg-teal-800/20" />
+      <div className="absolute -bottom-40 -right-40 -z-10 h-80 w-80 rounded-full bg-amber-200/20 blur-3xl dark:bg-amber-800/10" />
+
+      <Card className="w-full max-w-md animate-fade-in-up">
         <CardContent className="p-8">
           <div className="mb-8 flex flex-col items-center text-center">
-            <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-teal-500 text-white">
-              <Stethoscope className="h-6 w-6" />
+            <div className="relative mb-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25">
+                <Stethoscope className="h-7 w-7" />
+              </div>
+              <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-lg bg-amber-400 shadow-md">
+                <Lock className="h-3 w-3 text-white" />
+              </div>
             </div>
             <h1 className="text-2xl font-bold">Welcome back</h1>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1.5 text-sm text-muted-foreground">
               Log in to access your health profile and consultation history.
             </p>
           </div>
@@ -103,14 +113,14 @@ export default function LoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
               />
             </div>
 
             {error && (
-              <p className="text-sm text-destructive" role="alert">
+              <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive" role="alert">
                 {error}
-              </p>
+              </div>
             )}
 
             <Button type="submit" className="w-full" disabled={loading}>
@@ -121,10 +131,10 @@ export default function LoginPage() {
 
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-border" />
+              <div className="w-full border-t border-border/60" />
             </div>
             <div className="relative flex justify-center text-xs">
-              <span className="bg-card px-2 text-muted-foreground">
+              <span className="bg-card px-3 text-muted-foreground">
                 or continue with
               </span>
             </div>
@@ -144,7 +154,7 @@ export default function LoginPage() {
             Don&apos;t have an account?{" "}
             <Link
               href="/auth/signup"
-              className="font-medium text-teal-600 hover:underline"
+              className="font-semibold text-teal-600 underline underline-offset-2 hover:text-teal-700 dark:text-teal-400"
             >
               Sign up
             </Link>

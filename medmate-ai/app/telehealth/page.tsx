@@ -78,7 +78,7 @@ export default function TelehealthPage() {
   return (
     <div className="container max-w-3xl py-10">
       <div className="mb-8 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-500 text-white">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25">
           <Video className="h-6 w-6" />
         </div>
         <div>
@@ -124,10 +124,10 @@ export default function TelehealthPage() {
                       key={iso}
                       onClick={() => setSelected(iso)}
                       className={cn(
-                        "rounded-xl border p-3 text-left text-sm transition-colors",
+                        "rounded-xl border p-3.5 text-left text-sm transition-all duration-200",
                         active
-                          ? "border-teal-500 bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-200"
-                          : "border-border hover:bg-accent",
+                          ? "border-teal-400 bg-gradient-to-r from-teal-50 to-teal-50/50 text-teal-700 shadow-glow dark:from-teal-900/30 dark:to-teal-900/10 dark:text-teal-200"
+                          : "border-border/60 hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-soft dark:hover:border-teal-700",
                       )}
                     >
                       <div className="text-xs text-muted-foreground">
@@ -272,12 +272,14 @@ function InfoTile({
   body: string;
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-3">
-      <div className="flex items-center gap-2 text-teal-600">
-        {icon}
+    <div className="rounded-xl border border-border/60 bg-card p-4 shadow-soft">
+      <div className="flex items-center gap-2.5">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-50 text-teal-600 dark:bg-teal-900/40 dark:text-teal-400">
+          {icon}
+        </div>
         <span className="text-sm font-semibold text-foreground">{title}</span>
       </div>
-      <p className="mt-1 text-xs text-muted-foreground">{body}</p>
+      <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{body}</p>
     </div>
   );
 }

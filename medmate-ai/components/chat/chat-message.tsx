@@ -17,43 +17,63 @@ export function ChatMessage({ message, streaming }: Props) {
   return (
     <div
       className={cn(
-        "flex w-full animate-fade-in gap-3",
-        isUser ? "justify-end" : "justify-start",
+        "flex w-full gap-3",
+        isUser
+          ? "animate-slide-in-right justify-end"
+          : "animate-slide-in-left justify-start",
       )}
     >
       {!isUser && (
-        <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-500 text-white">
+        <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-md shadow-teal-500/20">
           <Stethoscope className="h-4 w-4" />
         </div>
       )}
 
       <div
         className={cn(
-          "max-w-[85%] rounded-2xl px-4 py-3 prose-chat",
+          "max-w-[80%] rounded-2xl px-4 py-3 prose-chat shadow-soft",
           isUser
-            ? "rounded-tr-sm bg-teal-500 text-white"
-            : "rounded-tl-sm bg-muted text-foreground",
+            ? "rounded-br-md bg-gradient-to-br from-teal-500 to-teal-600 text-white"
+            : "rounded-bl-md border border-border/40 bg-card text-foreground",
         )}
       >
         {isUser ? (
-          <p className="whitespace-pre-wrap">{message.content}</p>
+          <p className="whitespace-pre-wrap text-[15px]">{message.content}</p>
         ) : (
           <>
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {message.content || ""}
             </ReactMarkdown>
-            {streaming && (
-              <span className="ml-1 inline-block h-3 w-1.5 animate-pulse-soft bg-teal-500 align-middle" />
+            {streaming && message.content === "" && <TypingIndicator />}
+            {streaming && message.content !== "" && (
+              <span className="ml-0.5 inline-block h-4 w-[3px] animate-pulse-soft rounded-full bg-teal-500 align-middle" />
             )}
           </>
         )}
       </div>
 
       {isUser && (
-        <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-100 text-teal-700 dark:bg-teal-900 dark:text-teal-100">
+        <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-teal-100 to-teal-200 text-teal-700 shadow-sm dark:from-teal-800 dark:to-teal-900 dark:text-teal-100">
           <User className="h-4 w-4" />
         </div>
       )}
+    </div>
+  );
+}
+
+function TypingIndicator() {
+  return (
+    <div className="flex items-center gap-1 py-1" aria-label="MedMate is typing">
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          className="h-2 w-2 rounded-full bg-teal-400"
+          style={{
+            animation: "typing-dot 1.4s ease-in-out infinite",
+            animationDelay: `${i * 0.2}s`,
+          }}
+        />
+      ))}
     </div>
   );
 }

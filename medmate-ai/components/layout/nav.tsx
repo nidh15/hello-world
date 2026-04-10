@@ -2,16 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Stethoscope, Menu, X } from "lucide-react";
+import {
+  Stethoscope,
+  Menu,
+  X,
+  MessageSquareHeart,
+  ClipboardList,
+  Video,
+  FileText,
+} from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
-  { href: "/chat", label: "AI Chat" },
-  { href: "/symptom-checker", label: "Symptom checker" },
-  { href: "/telehealth", label: "Telehealth" },
-  { href: "/history", label: "History" },
+  { href: "/chat", label: "AI Chat", icon: MessageSquareHeart },
+  { href: "/symptom-checker", label: "Symptom checker", icon: ClipboardList },
+  { href: "/telehealth", label: "Telehealth", icon: Video },
+  { href: "/history", label: "History", icon: FileText },
 ];
 
 export function Nav() {
@@ -19,36 +27,47 @@ export function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-border/40 bg-background/60 backdrop-blur-2xl backdrop-saturate-150">
       <div className="container flex h-16 items-center justify-between">
+        {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-lg font-bold tracking-tight"
+          className="group flex items-center gap-2.5 text-lg font-bold tracking-tight"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-500 text-white">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-md shadow-teal-500/25 transition-transform duration-200 group-hover:scale-105">
             <Stethoscope className="h-5 w-5" />
           </span>
-          <span>
-            MedMate <span className="text-teal-500">AI</span>
+          <span className="flex items-baseline gap-0.5">
+            MedMate{" "}
+            <span className="bg-gradient-to-r from-teal-500 to-teal-400 bg-clip-text text-transparent">
+              AI
+            </span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-teal-50 hover:text-teal-700 dark:hover:bg-teal-900/30 dark:hover:text-teal-200",
-                pathname?.startsWith(item.href) &&
-                  "bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-200",
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-0.5 md:flex">
+          {navItems.map((item) => {
+            const active = pathname?.startsWith(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "relative flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-medium transition-all duration-200",
+                  active
+                    ? "bg-teal-50 text-teal-700 shadow-sm dark:bg-teal-900/30 dark:text-teal-200"
+                    : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
+        {/* Desktop auth */}
         <div className="hidden items-center gap-2 md:flex">
           <Link href="/auth/login">
             <Button variant="ghost" size="sm">
@@ -60,29 +79,43 @@ export function Nav() {
           </Link>
         </div>
 
+        {/* Mobile menu button */}
         <button
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-accent md:hidden"
+          className={cn(
+            "inline-flex h-10 w-10 items-center justify-center rounded-xl transition-colors md:hidden",
+            open ? "bg-teal-50 text-teal-700" : "hover:bg-accent",
+          )}
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
+      {/* Mobile drawer */}
       {open && (
-        <div className="border-t border-border bg-background md:hidden">
-          <div className="container flex flex-col gap-1 py-3">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-2 text-sm font-medium hover:bg-accent"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <div className="mt-2 grid grid-cols-2 gap-2">
+        <div className="animate-fade-in border-t border-border/40 bg-background/95 backdrop-blur-xl md:hidden">
+          <div className="container flex flex-col gap-1 py-4">
+            {navItems.map((item) => {
+              const active = pathname?.startsWith(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                    active
+                      ? "bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-200"
+                      : "hover:bg-accent",
+                  )}
+                >
+                  <item.icon className="h-4 w-4 text-muted-foreground" />
+                  {item.label}
+                </Link>
+              );
+            })}
+            <div className="mt-3 grid grid-cols-2 gap-2 border-t border-border pt-4">
               <Link href="/auth/login" onClick={() => setOpen(false)}>
                 <Button variant="outline" size="sm" className="w-full">
                   Log in

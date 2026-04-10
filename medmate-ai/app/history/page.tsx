@@ -129,7 +129,7 @@ export default function HistoryPage() {
   return (
     <div className="container max-w-3xl py-10">
       <div className="mb-8 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-500 text-white">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25">
           <FileText className="h-6 w-6" />
         </div>
         <div>
@@ -141,10 +141,10 @@ export default function HistoryPage() {
       </div>
 
       <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground/50" />
         <Input
-          className="pl-9"
-          placeholder="Search by keyword, symptom, or summary…"
+          className="pl-10"
+          placeholder="Search by keyword, symptom, or summary\u2026"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -222,17 +222,17 @@ export default function HistoryPage() {
 function EmptyHistory() {
   return (
     <Card>
-      <CardContent className="flex flex-col items-center gap-3 py-14 text-center">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-teal-100 text-teal-600 dark:bg-teal-900/40 dark:text-teal-300">
-          <Stethoscope className="h-6 w-6" />
+      <CardContent className="flex flex-col items-center gap-4 py-16 text-center">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/20 animate-float-gentle">
+          <Stethoscope className="h-7 w-7" />
         </div>
-        <h2 className="text-lg font-semibold">No consultations yet</h2>
+        <h2 className="text-lg font-bold">No consultations yet</h2>
         <p className="max-w-sm text-sm text-muted-foreground">
           Your saved consultations will appear here. Start a chat with MedMate
           to get going.
         </p>
         <Link href="/chat">
-          <Button>
+          <Button className="group">
             <MessageSquareHeart className="h-4 w-4" />
             Start a consultation
           </Button>

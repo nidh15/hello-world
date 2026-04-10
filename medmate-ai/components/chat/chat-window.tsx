@@ -7,6 +7,8 @@ import {
   AlertCircle,
   Sparkles,
   HeartPulse,
+  MessageSquareHeart,
+  ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -16,10 +18,22 @@ import { generateId } from "@/lib/utils";
 import type { ChatMessage as ChatMessageType, HealthProfile } from "@/types";
 
 const SUGGESTIONS = [
-  "I've had a headache for 3 days, should I be worried?",
-  "My toddler has a fever of 38.5°C — what should I watch for?",
-  "I'm feeling anxious and not sleeping well",
-  "I was bitten by something on a bushwalk, when do I need help?",
+  {
+    text: "I\u2019ve had a headache for 3 days, should I be worried?",
+    icon: "headache",
+  },
+  {
+    text: "My toddler has a fever of 38.5\u00B0C \u2014 what should I watch for?",
+    icon: "fever",
+  },
+  {
+    text: "I\u2019m feeling anxious and not sleeping well",
+    icon: "mental",
+  },
+  {
+    text: "I was bitten by something on a bushwalk, when do I need help?",
+    icon: "bite",
+  },
 ];
 
 interface Props {
@@ -87,7 +101,7 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({
-            messages: next.slice(0, -1), // exclude the placeholder assistant msg
+            messages: next.slice(0, -1),
             profile,
           }),
           signal: controller.signal,
@@ -95,9 +109,7 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
 
         if (!res.ok || !res.body) {
           const body = await res.text().catch(() => "");
-          throw new Error(
-            body || `Chat failed with status ${res.status}`,
-          );
+          throw new Error(body || `Chat failed with status ${res.status}`);
         }
 
         const reader = res.body.getReader();
@@ -121,7 +133,7 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
         const msg =
           err instanceof Error ? err.message : "Something went wrong";
         setError(msg);
-        setMessages((prev) => prev.slice(0, -1)); // drop the empty assistant msg
+        setMessages((prev) => prev.slice(0, -1));
       } finally {
         setStreaming(false);
         abortRef.current = null;
@@ -150,7 +162,7 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
       {/* Chat area */}
       <div
         ref={scrollRef}
-        className="flex-1 overflow-y-auto"
+        className="flex-1 overflow-y-auto scroll-smooth"
         aria-live="polite"
       >
         <div className="container max-w-3xl py-6">
@@ -163,14 +175,19 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
                   key={m.id}
                   message={m}
                   streaming={
-                    streaming && i === messages.length - 1 && m.role === "assistant"
+                    streaming &&
+                    i === messages.length - 1 &&
+                    m.role === "assistant"
                   }
                 />
               ))}
+
               {showTelehealthCTA && (
-                <div className="mt-2 rounded-2xl border border-teal-100 bg-teal-50 p-4 dark:border-teal-900/40 dark:bg-teal-950/30">
+                <div className="mt-2 animate-fade-in rounded-2xl border border-teal-200/60 bg-gradient-to-r from-teal-50 to-teal-50/50 p-4 shadow-soft dark:border-teal-900/40 dark:from-teal-950/30 dark:to-teal-950/10">
                   <div className="flex items-start gap-3">
-                    <Video className="mt-0.5 h-5 w-5 shrink-0 text-teal-600" />
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-sm">
+                      <Video className="h-4 w-4" />
+                    </div>
                     <div className="flex-1">
                       <p className="text-sm font-semibold">
                         Want to discuss this with a real doctor?
@@ -181,13 +198,17 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
                       </p>
                     </div>
                     <Link href="/telehealth">
-                      <Button size="sm">Book consult</Button>
+                      <Button size="sm" className="group shrink-0">
+                        Book consult
+                        <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                      </Button>
                     </Link>
                   </div>
                 </div>
               )}
+
               {error && (
-                <div className="flex items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
+                <div className="animate-fade-in flex items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
                   <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
                   <span>{error}</span>
                 </div>
@@ -198,7 +219,7 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
       </div>
 
       {/* Composer */}
-      <div className="border-t border-border bg-background">
+      <div className="border-t border-border/40 bg-background/60 backdrop-blur-xl">
         <div className="container max-w-3xl py-4">
           <div className="mb-3 flex items-center justify-between gap-2">
             <Button
@@ -206,13 +227,17 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
               size="sm"
               onClick={handleNew}
               disabled={isEmpty && !streaming}
+              className="gap-1.5"
             >
               <Plus className="h-4 w-4" />
               New consultation
             </Button>
             <p className="hidden text-xs text-muted-foreground sm:block">
               MedMate is not a doctor. In an emergency, call{" "}
-              <a href="tel:000" className="font-semibold underline">
+              <a
+                href="tel:000"
+                className="font-semibold text-foreground underline underline-offset-2"
+              >
                 000
               </a>
               .
@@ -239,29 +264,38 @@ function EmptyState({
   profile: HealthProfile | null;
 }) {
   return (
-    <div className="flex flex-col items-center py-10 text-center">
-      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-teal-600 dark:bg-teal-900/40 dark:text-teal-300">
-        <HeartPulse className="h-7 w-7" />
+    <div className="flex flex-col items-center py-16 text-center">
+      <div className="relative mb-6">
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25 animate-float-gentle">
+          <HeartPulse className="h-8 w-8" />
+        </div>
+        <div className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-lg bg-amber-400 shadow-md">
+          <MessageSquareHeart className="h-3.5 w-3.5 text-white" />
+        </div>
       </div>
+
       <h1 className="text-2xl font-bold md:text-3xl">
-        G&apos;day{profile?.fullName ? `, ${profile.fullName.split(" ")[0]}` : ""}.
-        How can I help today?
+        G&apos;day
+        {profile?.fullName
+          ? `, ${profile.fullName.split(" ")[0]}`
+          : ""}
+        . How can I help today?
       </h1>
       <p className="mt-3 max-w-lg text-muted-foreground">
         Describe what&apos;s going on and I&apos;ll ask a few questions, explain
         what might be happening, and suggest a clear next step.
       </p>
 
-      <div className="mt-8 grid w-full max-w-xl gap-2 sm:grid-cols-2">
+      <div className="stagger-children mt-10 grid w-full max-w-xl gap-3 sm:grid-cols-2">
         {SUGGESTIONS.map((s) => (
           <button
-            key={s}
-            onClick={() => onPick(s)}
-            className="group rounded-xl border border-border bg-card p-4 text-left text-sm transition-colors hover:border-teal-300 hover:bg-teal-50 dark:hover:bg-teal-900/20"
+            key={s.text}
+            onClick={() => onPick(s.text)}
+            className="group animate-fade-in-up rounded-2xl border border-border/60 bg-card p-4 text-left text-sm shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-glow dark:hover:border-teal-700"
           >
-            <div className="flex items-start gap-2">
-              <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-teal-500" />
-              <span>{s}</span>
+            <div className="flex items-start gap-2.5">
+              <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-amber-500 transition-transform duration-300 group-hover:scale-110 group-hover:text-teal-500" />
+              <span className="leading-relaxed">{s.text}</span>
             </div>
           </button>
         ))}

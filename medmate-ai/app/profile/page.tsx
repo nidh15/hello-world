@@ -113,7 +113,7 @@ export default function ProfilePage() {
   return (
     <div className="container max-w-3xl py-10">
       <div className="mb-8 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-500 text-white">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25">
           <User className="h-6 w-6" />
         </div>
         <div>
@@ -379,7 +379,7 @@ function ListCard({
           {items.map((item, i) => (
             <span
               key={`${item}-${i}`}
-              className="inline-flex items-center gap-1 rounded-full bg-teal-50 px-3 py-1 text-sm text-teal-700 dark:bg-teal-900/40 dark:text-teal-200"
+              className="inline-flex items-center gap-1.5 rounded-full border border-teal-200/60 bg-gradient-to-r from-teal-50 to-teal-50/50 px-3 py-1.5 text-sm font-medium text-teal-700 shadow-sm dark:border-teal-800/60 dark:from-teal-900/40 dark:to-teal-900/20 dark:text-teal-200"
             >
               {item}
               <button
