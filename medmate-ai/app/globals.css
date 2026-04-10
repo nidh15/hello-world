@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 48 20% 98%;
+    --foreground: 197 30% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 197 30% 12%;
+
+    --primary: 184 80% 26%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 184 40% 94%;
+    --secondary-foreground: 184 80% 20%;
+
+    --muted: 200 15% 95%;
+    --muted-foreground: 200 10% 40%;
+
+    --accent: 184 40% 94%;
+    --accent-foreground: 184 80% 20%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 200 15% 90%;
+    --input: 200 15% 90%;
+    --ring: 184 80% 26%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 200 25% 8%;
+    --foreground: 48 20% 96%;
+
+    --card: 200 25% 11%;
+    --card-foreground: 48 20% 96%;
+
+    --primary: 184 70% 40%;
+    --primary-foreground: 200 25% 8%;
+
+    --secondary: 200 25% 16%;
+    --secondary-foreground: 48 20% 96%;
+
+    --muted: 200 25% 14%;
+    --muted-foreground: 200 10% 65%;
+
+    --accent: 200 25% 16%;
+    --accent-foreground: 48 20% 96%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 200 25% 18%;
+    --input: 200 25% 18%;
+    --ring: 184 70% 40%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .prose-chat {
+    @apply text-[15px] leading-relaxed;
+  }
+  .prose-chat p {
+    @apply mb-3 last:mb-0;
+  }
+  .prose-chat ul {
+    @apply mb-3 list-disc pl-5;
+  }
+  .prose-chat ol {
+    @apply mb-3 list-decimal pl-5;
+  }
+  .prose-chat li {
+    @apply mb-1;
+  }
+  .prose-chat strong {
+    @apply font-semibold;
+  }
+  .prose-chat code {
+    @apply rounded bg-muted px-1 py-0.5 text-[13px];
+  }
+  .prose-chat h1,
+  .prose-chat h2,
+  .prose-chat h3 {
+    @apply mb-2 mt-4 font-semibold;
+  }
+}
