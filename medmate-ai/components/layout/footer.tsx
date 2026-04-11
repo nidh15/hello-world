@@ -47,12 +47,12 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-md shadow-teal-500/20">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-md shadow-ocean-500/20">
                 <Stethoscope className="h-5 w-5" />
               </span>
-              <span className="text-lg font-bold tracking-tight">
+              <span className="text-lg font-bold font-display tracking-tight">
                 MedMate{" "}
-                <span className="bg-gradient-to-r from-teal-500 to-teal-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-ocean-500 to-ocean-400 bg-clip-text text-transparent">
                   AI
                 </span>
               </span>
@@ -76,7 +76,7 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="text-sm font-semibold">MedMate</h4>
+            <h4 className="text-sm font-semibold font-display">MedMate</h4>
             <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
               {[
                 { href: "/chat", label: "AI Chat" },
@@ -88,7 +88,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="transition-colors hover:text-teal-600 dark:hover:text-teal-400"
+                    className="transition-colors hover:text-ocean-600 dark:hover:text-ocean-400"
                   >
                     {link.label}
                   </Link>
@@ -99,7 +99,7 @@ export function Footer() {
 
           {/* Helplines */}
           <div>
-            <h4 className="text-sm font-semibold">Australian helplines</h4>
+            <h4 className="text-sm font-semibold font-display">Australian helplines</h4>
             <ul className="mt-4 space-y-3 text-sm">
               {helplines.map((h) => (
                 <li key={h.name}>
@@ -111,7 +111,7 @@ export function Footer() {
                       className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md ${
                         h.urgent
                           ? "bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400"
-                          : "bg-teal-50 text-teal-500 dark:bg-teal-900/40 dark:text-teal-400"
+                          : "bg-ocean-50 text-ocean-500 dark:bg-ocean-900/40 dark:text-ocean-400"
                       }`}
                     >
                       <Phone className="h-3 w-3" />
@@ -135,7 +135,7 @@ export function Footer() {
         <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-border/40 pt-6 text-xs text-muted-foreground md:flex-row md:items-center">
           <p className="flex items-center gap-1.5">
             &copy; {new Date().getFullYear()} MedMate AI. Made with{" "}
-            <Heart className="h-3 w-3 text-red-400" /> in Australia.
+            <Heart className="h-3 w-3 text-coral-400" /> in Australia.
           </p>
           <div className="flex gap-4">
             <Link

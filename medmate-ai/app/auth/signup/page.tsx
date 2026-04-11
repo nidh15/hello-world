@@ -67,22 +67,22 @@ export default function SignupPage() {
   return (
     <div className="relative flex min-h-[calc(100vh-10rem)] items-center justify-center overflow-hidden px-4 py-12">
       {/* Background */}
-      <div className="absolute inset-0 -z-10 bg-dot-grid opacity-30 dark:opacity-10" />
-      <div className="absolute -right-40 -top-40 -z-10 h-80 w-80 rounded-full bg-teal-200/30 blur-3xl dark:bg-teal-800/20" />
-      <div className="absolute -bottom-40 -left-40 -z-10 h-80 w-80 rounded-full bg-amber-200/20 blur-3xl dark:bg-amber-800/10" />
+      <div className="absolute inset-0 -z-10 mesh-gradient" />
+      <div className="absolute -right-40 -top-40 -z-10 h-80 w-80 blob bg-ocean-200/30 blur-3xl dark:bg-ocean-800/20" />
+      <div className="absolute -bottom-40 -left-40 -z-10 h-80 w-80 blob bg-coral-200/20 blur-3xl dark:bg-coral-800/10" />
 
-      <Card className="w-full max-w-md animate-fade-in-up">
+      <Card className="w-full max-w-md animate-fade-up">
         <CardContent className="p-8">
           <div className="mb-8 flex flex-col items-center text-center">
             <div className="relative mb-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-lg shadow-ocean-500/25">
                 <Stethoscope className="h-7 w-7" />
               </div>
-              <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-lg bg-amber-400 shadow-md">
+              <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-lg bg-coral-400 shadow-md">
                 <UserPlus className="h-3 w-3 text-white" />
               </div>
             </div>
-            <h1 className="text-2xl font-bold">Create your MedMate account</h1>
+            <h1 className="heading text-2xl font-bold">Create your MedMate account</h1>
             <p className="mt-1.5 text-sm text-muted-foreground">
               Free forever. Save your health profile and consultation history.
             </p>
@@ -132,21 +132,21 @@ export default function SignupPage() {
                 type="checkbox"
                 checked={accepted}
                 onChange={(e) => setAccepted(e.target.checked)}
-                className="mt-0.5 h-4 w-4 rounded border-border text-teal-500 focus:ring-teal-500"
+                className="mt-0.5 h-4 w-4 rounded border-border text-ocean-500 focus:ring-ocean-500"
               />
               <span className="leading-relaxed">
                 I understand that MedMate AI is not a doctor and does not provide
                 medical advice. I accept the{" "}
                 <Link
                   href="/terms"
-                  className="text-teal-600 underline underline-offset-2 hover:text-teal-700 dark:text-teal-400"
+                  className="text-ocean-600 underline underline-offset-2 hover:text-ocean-700 dark:text-ocean-400"
                 >
                   Terms of Service
                 </Link>{" "}
                 and{" "}
                 <Link
                   href="/privacy"
-                  className="text-teal-600 underline underline-offset-2 hover:text-teal-700 dark:text-teal-400"
+                  className="text-ocean-600 underline underline-offset-2 hover:text-ocean-700 dark:text-ocean-400"
                 >
                   Privacy Policy
                 </Link>
@@ -160,7 +160,7 @@ export default function SignupPage() {
               </div>
             )}
             {success && (
-              <div className="flex items-center gap-2 rounded-xl border border-teal-200 bg-teal-50 p-3 text-sm text-teal-700 dark:border-teal-900/40 dark:bg-teal-950/30 dark:text-teal-200">
+              <div className="flex items-center gap-2 rounded-xl border border-ocean-200 bg-ocean-50 p-3 text-sm text-ocean-700 dark:border-ocean-900/40 dark:bg-ocean-950/30 dark:text-ocean-200">
                 <CheckCircle2 className="h-4 w-4 shrink-0" />
                 Account created. Check your email to verify, then log in.
               </div>
@@ -176,7 +176,7 @@ export default function SignupPage() {
             Already have an account?{" "}
             <Link
               href="/auth/login"
-              className="font-semibold text-teal-600 underline underline-offset-2 hover:text-teal-700 dark:text-teal-400"
+              className="font-semibold text-ocean-600 underline underline-offset-2 hover:text-ocean-700 dark:text-ocean-400"
             >
               Log in
             </Link>

@@ -113,11 +113,11 @@ export default function ProfilePage() {
   return (
     <div className="container max-w-3xl py-10">
       <div className="mb-8 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-lg shadow-ocean-500/25">
           <User className="h-6 w-6" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold">Your health profile</h1>
+          <h1 className="heading text-2xl font-bold">Your health profile</h1>
           <p className="text-sm text-muted-foreground">
             MedMate uses this to personalise every consultation.
           </p>
@@ -158,7 +158,7 @@ export default function ProfilePage() {
             </Field>
             <Field label="Sex assigned at birth">
               <select
-                className="flex h-10 w-full rounded-lg border border-border bg-background px-3 text-sm"
+                className="flex h-10 w-full rounded-xl border border-border bg-background px-3 font-body text-sm transition-colors hover:border-ocean-300 focus:outline-none focus:ring-2 focus:ring-ocean-500/30"
                 value={profile.sex ?? ""}
                 onChange={(e) =>
                   setProfile({
@@ -176,7 +176,7 @@ export default function ProfilePage() {
             </Field>
             <Field label="Blood type">
               <select
-                className="flex h-10 w-full rounded-lg border border-border bg-background px-3 text-sm"
+                className="flex h-10 w-full rounded-xl border border-border bg-background px-3 font-body text-sm transition-colors hover:border-ocean-300 focus:outline-none focus:ring-2 focus:ring-ocean-500/30"
                 value={profile.bloodType ?? "unknown"}
                 onChange={(e) =>
                   setProfile({
@@ -315,7 +315,7 @@ export default function ProfilePage() {
 
         <div className="flex items-center justify-end gap-3">
           {message && (
-            <span className="text-sm text-teal-600">{message}</span>
+            <span className="text-sm text-ocean-600">{message}</span>
           )}
           <Button onClick={handleSave} disabled={saving}>
             {saving ? (
@@ -379,13 +379,13 @@ function ListCard({
           {items.map((item, i) => (
             <span
               key={`${item}-${i}`}
-              className="inline-flex items-center gap-1.5 rounded-full border border-teal-200/60 bg-gradient-to-r from-teal-50 to-teal-50/50 px-3 py-1.5 text-sm font-medium text-teal-700 shadow-sm dark:border-teal-800/60 dark:from-teal-900/40 dark:to-teal-900/20 dark:text-teal-200"
+              className="inline-flex items-center gap-1.5 rounded-full border border-ocean-200/60 bg-gradient-to-r from-ocean-50 to-ocean-50/50 px-3 py-1.5 text-sm font-medium text-ocean-700 shadow-sm dark:border-ocean-800/60 dark:from-ocean-900/40 dark:to-ocean-900/20 dark:text-ocean-200"
             >
               {item}
               <button
                 type="button"
                 onClick={() => onChange(items.filter((_, j) => j !== i))}
-                className="rounded-full hover:bg-teal-100 dark:hover:bg-teal-800"
+                className="rounded-full hover:bg-ocean-100 dark:hover:bg-ocean-800"
                 aria-label={`Remove ${item}`}
               >
                 <X className="h-3 w-3" />

@@ -27,19 +27,19 @@ export function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/40 bg-background/60 backdrop-blur-2xl backdrop-saturate-150">
+    <header className="sticky top-0 z-40 glass border-b border-border/40">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <Link
           href="/"
           className="group flex items-center gap-2.5 text-lg font-bold tracking-tight"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-md shadow-teal-500/25 transition-transform duration-200 group-hover:scale-105">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-md shadow-ocean-500/25 transition-transform duration-200 group-hover:scale-105">
             <Stethoscope className="h-5 w-5" />
           </span>
-          <span className="flex items-baseline gap-0.5">
+          <span className="flex items-baseline gap-0.5 font-display">
             MedMate{" "}
-            <span className="bg-gradient-to-r from-teal-500 to-teal-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-ocean-500 to-ocean-400 bg-clip-text text-transparent">
               AI
             </span>
           </span>
@@ -56,7 +56,7 @@ export function Nav() {
                 className={cn(
                   "relative flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-medium transition-all duration-200",
                   active
-                    ? "bg-teal-50 text-teal-700 shadow-sm dark:bg-teal-900/30 dark:text-teal-200"
+                    ? "bg-ocean-50 text-ocean-700 shadow-sm dark:bg-ocean-900/30 dark:text-ocean-200"
                     : "text-muted-foreground hover:bg-accent hover:text-foreground",
                 )}
               >
@@ -85,7 +85,7 @@ export function Nav() {
           onClick={() => setOpen((v) => !v)}
           className={cn(
             "inline-flex h-10 w-10 items-center justify-center rounded-xl transition-colors md:hidden",
-            open ? "bg-teal-50 text-teal-700" : "hover:bg-accent",
+            open ? "bg-ocean-50 text-ocean-700" : "hover:bg-accent",
           )}
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -106,7 +106,7 @@ export function Nav() {
                   className={cn(
                     "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
                     active
-                      ? "bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-200"
+                      ? "bg-ocean-50 text-ocean-700 dark:bg-ocean-900/30 dark:text-ocean-200"
                       : "hover:bg-accent",
                   )}
                 >

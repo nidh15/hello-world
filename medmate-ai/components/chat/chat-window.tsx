@@ -183,9 +183,9 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
               ))}
 
               {showTelehealthCTA && (
-                <div className="mt-2 animate-fade-in rounded-2xl border border-teal-200/60 bg-gradient-to-r from-teal-50 to-teal-50/50 p-4 shadow-soft dark:border-teal-900/40 dark:from-teal-950/30 dark:to-teal-950/10">
+                <div className="mt-2 animate-fade-in rounded-2xl border border-ocean-200/60 bg-gradient-to-r from-ocean-50 to-ocean-50/50 p-4 shadow-warm dark:border-ocean-900/40 dark:from-ocean-950/30 dark:to-ocean-950/10">
                   <div className="flex items-start gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-sm">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-sm">
                       <Video className="h-4 w-4" />
                     </div>
                     <div className="flex-1">
@@ -219,7 +219,7 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
       </div>
 
       {/* Composer */}
-      <div className="border-t border-border/40 bg-background/60 backdrop-blur-xl">
+      <div className="border-t border-border/40 glass">
         <div className="container max-w-3xl py-4">
           <div className="mb-3 flex items-center justify-between gap-2">
             <Button
@@ -266,15 +266,15 @@ function EmptyState({
   return (
     <div className="flex flex-col items-center py-16 text-center">
       <div className="relative mb-6">
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25 animate-float-gentle">
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-lg shadow-ocean-500/25 animate-float">
           <HeartPulse className="h-8 w-8" />
         </div>
-        <div className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-lg bg-amber-400 shadow-md">
+        <div className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-lg bg-coral-400 shadow-md">
           <MessageSquareHeart className="h-3.5 w-3.5 text-white" />
         </div>
       </div>
 
-      <h1 className="text-2xl font-bold md:text-3xl">
+      <h1 className="heading text-2xl font-bold md:text-3xl">
         G&apos;day
         {profile?.fullName
           ? `, ${profile.fullName.split(" ")[0]}`
@@ -286,15 +286,15 @@ function EmptyState({
         what might be happening, and suggest a clear next step.
       </p>
 
-      <div className="stagger-children mt-10 grid w-full max-w-xl gap-3 sm:grid-cols-2">
+      <div className="stagger mt-10 grid w-full max-w-xl gap-3 sm:grid-cols-2">
         {SUGGESTIONS.map((s) => (
           <button
             key={s.text}
             onClick={() => onPick(s.text)}
-            className="group animate-fade-in-up rounded-2xl border border-border/60 bg-card p-4 text-left text-sm shadow-soft transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-glow dark:hover:border-teal-700"
+            className="group animate-fade-up rounded-2xl border border-border/60 bg-card p-4 text-left text-sm shadow-warm transition-all duration-200 hover:-translate-y-0.5 hover:border-ocean-300 hover:shadow-glow dark:hover:border-ocean-700"
           >
             <div className="flex items-start gap-2.5">
-              <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-amber-500 transition-transform duration-300 group-hover:scale-110 group-hover:text-teal-500" />
+              <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-coral-500 transition-transform duration-300 group-hover:scale-110 group-hover:text-ocean-500" />
               <span className="leading-relaxed">{s.text}</span>
             </div>
           </button>

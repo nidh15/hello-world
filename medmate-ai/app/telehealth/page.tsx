@@ -69,7 +69,6 @@ export default function TelehealthPage() {
 
   async function confirm() {
     setLoading(true);
-    // Placeholder delay — no real booking
     await new Promise((r) => setTimeout(r, 800));
     setLoading(false);
     setStep("confirmed");
@@ -78,11 +77,11 @@ export default function TelehealthPage() {
   return (
     <div className="container max-w-3xl py-10">
       <div className="mb-8 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-lg shadow-ocean-500/25">
           <Video className="h-6 w-6" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold">Book a telehealth consult</h1>
+          <h1 className="heading text-2xl font-bold">Book a telehealth consult</h1>
           <p className="text-sm text-muted-foreground">
             Video or phone consult with an Australian-registered GP.
           </p>
@@ -126,8 +125,8 @@ export default function TelehealthPage() {
                       className={cn(
                         "rounded-xl border p-3.5 text-left text-sm transition-all duration-200",
                         active
-                          ? "border-teal-400 bg-gradient-to-r from-teal-50 to-teal-50/50 text-teal-700 shadow-glow dark:from-teal-900/30 dark:to-teal-900/10 dark:text-teal-200"
-                          : "border-border/60 hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-soft dark:hover:border-teal-700",
+                          ? "border-ocean-400 bg-gradient-to-r from-ocean-50 to-ocean-50/50 text-ocean-700 shadow-glow dark:from-ocean-900/30 dark:to-ocean-900/10 dark:text-ocean-200"
+                          : "border-border/60 hover:-translate-y-0.5 hover:border-ocean-300 hover:shadow-warm dark:hover:border-ocean-700",
                       )}
                     >
                       <div className="text-xs text-muted-foreground">
@@ -156,7 +155,7 @@ export default function TelehealthPage() {
                   type="checkbox"
                   checked={bulkBilled}
                   onChange={(e) => setBulkBilled(e.target.checked)}
-                  className="h-4 w-4 rounded border-border text-teal-500"
+                  className="h-4 w-4 rounded border-border text-ocean-500"
                 />
                 Yes
               </label>
@@ -232,10 +231,10 @@ export default function TelehealthPage() {
       )}
 
       {step === "confirmed" && selected && (
-        <Card className="border-teal-100 bg-teal-50 dark:border-teal-900/40 dark:bg-teal-950/30">
+        <Card className="border-ocean-100 bg-ocean-50 dark:border-ocean-900/40 dark:bg-ocean-950/30">
           <CardContent className="p-8 text-center">
-            <CheckCircle2 className="mx-auto mb-3 h-10 w-10 text-teal-600" />
-            <h2 className="text-xl font-bold">Booking confirmed</h2>
+            <CheckCircle2 className="mx-auto mb-3 h-10 w-10 text-ocean-600" />
+            <h2 className="heading text-xl font-bold">Booking confirmed</h2>
             <p className="mt-2 text-sm text-muted-foreground">
               Your telehealth consult is booked for{" "}
               <strong>{formatSlot(selected).date}</strong> at{" "}
@@ -272,9 +271,9 @@ function InfoTile({
   body: string;
 }) {
   return (
-    <div className="rounded-xl border border-border/60 bg-card p-4 shadow-soft">
+    <div className="rounded-xl border border-border/60 bg-card p-4 shadow-warm">
       <div className="flex items-center gap-2.5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-50 text-teal-600 dark:bg-teal-900/40 dark:text-teal-400">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-ocean-50 text-ocean-600 dark:bg-ocean-900/40 dark:text-ocean-400">
           {icon}
         </div>
         <span className="text-sm font-semibold text-foreground">{title}</span>

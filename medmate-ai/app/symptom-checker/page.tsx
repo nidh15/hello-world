@@ -112,7 +112,6 @@ export default function SymptomCheckerPage() {
 
   function goToChat() {
     const summary = buildSummary(input);
-    // Store in sessionStorage for the chat page to pick up
     if (typeof window !== "undefined") {
       sessionStorage.setItem("medmate:symptom-input", summary);
     }
@@ -127,12 +126,12 @@ export default function SymptomCheckerPage() {
     <div className="container max-w-2xl py-10">
       <div className="mb-8 flex items-center gap-3">
         <div className="relative">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-lg shadow-ocean-500/25">
             <ClipboardList className="h-6 w-6" />
           </div>
         </div>
         <div>
-          <h1 className="text-2xl font-bold">Symptom checker</h1>
+          <h1 className="heading text-2xl font-bold">Symptom checker</h1>
           <p className="text-sm text-muted-foreground">
             A quick, guided walkthrough to help MedMate triage your concern.
           </p>
@@ -148,15 +147,15 @@ export default function SymptomCheckerPage() {
           >
             <div className="flex items-center gap-0 w-full">
               {i > 0 && (
-                <div className={cn("h-0.5 flex-1 rounded-full transition-colors", step >= s.num ? "bg-teal-400" : "bg-border")} />
+                <div className={cn("h-0.5 flex-1 rounded-full transition-colors", step >= s.num ? "bg-ocean-400" : "bg-border")} />
               )}
               <div
                 className={cn(
                   "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-xs font-semibold transition-all duration-300",
                   step > s.num &&
-                    "bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-md shadow-teal-500/20",
+                    "bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-md shadow-ocean-500/20",
                   step === s.num &&
-                    "border-2 border-teal-500 bg-teal-50 text-teal-600 shadow-glow dark:bg-teal-900/30 dark:text-teal-200",
+                    "border-2 border-ocean-500 bg-ocean-50 text-ocean-600 shadow-glow dark:bg-ocean-900/30 dark:text-ocean-200",
                   step < s.num &&
                     "border border-border bg-background text-muted-foreground",
                 )}
@@ -164,13 +163,13 @@ export default function SymptomCheckerPage() {
                 {step > s.num ? <CheckCircle2 className="h-4 w-4" /> : s.num}
               </div>
               {i < STEPS.length - 1 && (
-                <div className={cn("h-0.5 flex-1 rounded-full transition-colors", step > s.num ? "bg-teal-400" : "bg-border")} />
+                <div className={cn("h-0.5 flex-1 rounded-full transition-colors", step > s.num ? "bg-ocean-400" : "bg-border")} />
               )}
             </div>
             <span
               className={cn(
                 "hidden text-[11px] md:block",
-                step === s.num ? "font-semibold text-teal-600 dark:text-teal-400" : "text-muted-foreground",
+                step === s.num ? "font-semibold text-ocean-600 dark:text-ocean-400" : "text-muted-foreground",
               )}
             >
               {s.label}
@@ -196,8 +195,8 @@ export default function SymptomCheckerPage() {
                   className={cn(
                     "rounded-xl border p-3.5 text-left text-sm font-medium transition-all duration-200",
                     input.bodyArea === area
-                      ? "border-teal-400 bg-gradient-to-r from-teal-50 to-teal-50/50 text-teal-700 shadow-glow dark:from-teal-900/30 dark:to-teal-900/10 dark:text-teal-200"
-                      : "border-border/60 hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-soft dark:hover:border-teal-700",
+                      ? "border-ocean-400 bg-gradient-to-r from-ocean-50 to-ocean-50/50 text-ocean-700 shadow-glow dark:from-ocean-900/30 dark:to-ocean-900/10 dark:text-ocean-200"
+                      : "border-border/60 hover:-translate-y-0.5 hover:border-ocean-300 hover:shadow-warm dark:hover:border-ocean-700",
                   )}
                 >
                   {area}
@@ -228,8 +227,8 @@ export default function SymptomCheckerPage() {
                       className={cn(
                         "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-all duration-200",
                         active
-                          ? "border-teal-400 bg-gradient-to-r from-teal-500 to-teal-600 text-white shadow-md shadow-teal-500/20"
-                          : "border-border/60 hover:border-teal-300 hover:bg-teal-50 dark:hover:border-teal-700 dark:hover:bg-teal-900/20",
+                          ? "border-ocean-400 bg-gradient-to-r from-ocean-500 to-ocean-600 text-white shadow-md shadow-ocean-500/20"
+                          : "border-border/60 hover:border-ocean-300 hover:bg-ocean-50 dark:hover:border-ocean-700 dark:hover:bg-ocean-900/20",
                       )}
                     >
                       {sym}
@@ -284,8 +283,8 @@ export default function SymptomCheckerPage() {
                       className={cn(
                         "h-12 flex-1 rounded-xl border text-sm font-semibold transition-all duration-200",
                         input.severity === n
-                          ? "border-teal-400 bg-gradient-to-b from-teal-500 to-teal-600 text-white shadow-md shadow-teal-500/20"
-                          : "border-border/60 hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-soft dark:hover:border-teal-700",
+                          ? "border-ocean-400 bg-gradient-to-b from-ocean-500 to-ocean-600 text-white shadow-md shadow-ocean-500/20"
+                          : "border-border/60 hover:-translate-y-0.5 hover:border-ocean-300 hover:shadow-warm dark:hover:border-ocean-700",
                       )}
                     >
                       {n}
