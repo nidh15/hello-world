@@ -70,22 +70,22 @@ export default function LoginPage() {
   return (
     <div className="relative flex min-h-[calc(100vh-10rem)] items-center justify-center overflow-hidden px-4 py-12">
       {/* Background */}
-      <div className="absolute inset-0 -z-10 bg-dot-grid opacity-30 dark:opacity-10" />
-      <div className="absolute -left-40 -top-40 -z-10 h-80 w-80 rounded-full bg-teal-200/30 blur-3xl dark:bg-teal-800/20" />
-      <div className="absolute -bottom-40 -right-40 -z-10 h-80 w-80 rounded-full bg-amber-200/20 blur-3xl dark:bg-amber-800/10" />
+      <div className="absolute inset-0 -z-10 mesh-gradient" />
+      <div className="absolute -left-40 -top-40 -z-10 h-80 w-80 blob bg-ocean-200/30 blur-3xl dark:bg-ocean-800/20" />
+      <div className="absolute -bottom-40 -right-40 -z-10 h-80 w-80 blob bg-coral-200/20 blur-3xl dark:bg-coral-800/10" />
 
-      <Card className="w-full max-w-md animate-fade-in-up">
+      <Card className="w-full max-w-md animate-fade-up">
         <CardContent className="p-8">
           <div className="mb-8 flex flex-col items-center text-center">
             <div className="relative mb-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-lg shadow-ocean-500/25">
                 <Stethoscope className="h-7 w-7" />
               </div>
-              <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-lg bg-amber-400 shadow-md">
+              <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-lg bg-coral-400 shadow-md">
                 <Lock className="h-3 w-3 text-white" />
               </div>
             </div>
-            <h1 className="text-2xl font-bold">Welcome back</h1>
+            <h1 className="heading text-2xl font-bold">Welcome back</h1>
             <p className="mt-1.5 text-sm text-muted-foreground">
               Log in to access your health profile and consultation history.
             </p>
@@ -154,7 +154,7 @@ export default function LoginPage() {
             Don&apos;t have an account?{" "}
             <Link
               href="/auth/signup"
-              className="font-semibold text-teal-600 underline underline-offset-2 hover:text-teal-700 dark:text-teal-400"
+              className="font-semibold text-ocean-600 underline underline-offset-2 hover:text-ocean-700 dark:text-ocean-400"
             >
               Sign up
             </Link>

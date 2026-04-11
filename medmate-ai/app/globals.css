@@ -4,67 +4,66 @@
 
 @layer base {
   :root {
-    --background: 48 20% 98%;
-    --foreground: 197 30% 12%;
+    --background: 28 40% 98%;
+    --foreground: 220 30% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 197 30% 12%;
+    --card-foreground: 220 30% 12%;
 
-    --primary: 184 80% 26%;
+    --primary: 180 82% 24%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 184 40% 94%;
-    --secondary-foreground: 184 80% 20%;
+    --secondary: 28 30% 94%;
+    --secondary-foreground: 180 60% 22%;
 
-    --muted: 200 15% 95%;
-    --muted-foreground: 200 10% 40%;
+    --muted: 28 20% 94%;
+    --muted-foreground: 220 10% 42%;
 
-    --accent: 184 40% 94%;
-    --accent-foreground: 184 80% 20%;
+    --accent: 28 30% 94%;
+    --accent-foreground: 180 60% 22%;
 
-    --destructive: 0 72% 51%;
+    --destructive: 8 72% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 200 15% 90%;
-    --input: 200 15% 88%;
-    --ring: 184 80% 26%;
+    --border: 28 15% 88%;
+    --input: 28 15% 86%;
+    --ring: 180 82% 24%;
 
-    --radius: 0.75rem;
+    --radius: 0.875rem;
   }
 
   .dark {
-    --background: 200 25% 6%;
-    --foreground: 48 20% 96%;
+    --background: 222 30% 7%;
+    --foreground: 28 20% 94%;
 
-    --card: 200 25% 9%;
-    --card-foreground: 48 20% 96%;
+    --card: 222 30% 10%;
+    --card-foreground: 28 20% 94%;
 
-    --primary: 184 70% 40%;
-    --primary-foreground: 200 25% 6%;
+    --primary: 180 60% 42%;
+    --primary-foreground: 222 30% 7%;
 
-    --secondary: 200 25% 14%;
-    --secondary-foreground: 48 20% 96%;
+    --secondary: 222 25% 14%;
+    --secondary-foreground: 28 20% 94%;
 
-    --muted: 200 25% 12%;
-    --muted-foreground: 200 10% 60%;
+    --muted: 222 25% 12%;
+    --muted-foreground: 220 10% 58%;
 
-    --accent: 200 25% 14%;
-    --accent-foreground: 48 20% 96%;
+    --accent: 222 25% 14%;
+    --accent-foreground: 28 20% 94%;
 
-    --destructive: 0 62% 45%;
+    --destructive: 8 62% 42%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 200 25% 15%;
-    --input: 200 25% 15%;
-    --ring: 184 70% 40%;
+    --border: 222 25% 16%;
+    --input: 222 25% 16%;
+    --ring: 180 60% 42%;
   }
 
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-background text-foreground;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -74,111 +73,110 @@
     overflow-x: hidden;
   }
 
-  /* Better focus styles globally */
-  :focus-visible {
-    @apply outline-none ring-2 ring-teal-500/50 ring-offset-2 ring-offset-background;
-  }
-
-  /* Smooth scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-border;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-muted-foreground/30;
-  }
-
-  /* Selection colour */
+  /* Warm selection */
   ::selection {
-    @apply bg-teal-200/60 text-teal-900;
+    @apply bg-ocean-200/70 text-ocean-900;
   }
   .dark ::selection {
-    @apply bg-teal-700/50 text-teal-50;
+    @apply bg-ocean-700/50 text-ocean-50;
   }
+
+  /* Refined scrollbar */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { @apply bg-transparent; }
+  ::-webkit-scrollbar-thumb { @apply rounded-full bg-ocean-200/60; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-ocean-300/60; }
+  .dark ::-webkit-scrollbar-thumb { @apply bg-ocean-800/60; }
 }
 
 @layer components {
-  /* Chat prose */
+  /* ── Film grain overlay ── */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 128px 128px;
+    mix-blend-mode: overlay;
+  }
+  .dark .grain { opacity: 0.04; }
+
+  /* ── Organic blob shape ── */
+  .blob {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: blob-morph 8s ease-in-out infinite;
+  }
+
+  /* ── Mesh gradient hero ── */
+  .mesh-gradient {
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(11,110,110,0.12), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(232,115,90,0.08), transparent),
+      radial-gradient(ellipse 50% 50% at 50% 100%, rgba(74,140,74,0.06), transparent);
+  }
+  .dark .mesh-gradient {
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(11,110,110,0.25), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(232,115,90,0.12), transparent),
+      radial-gradient(ellipse 50% 50% at 50% 100%, rgba(74,140,74,0.08), transparent);
+  }
+
+  /* ── Warm glass ── */
+  .glass {
+    @apply bg-white/70 backdrop-blur-2xl backdrop-saturate-150;
+  }
+  .dark .glass {
+    @apply bg-background/70;
+  }
+
+  /* ── Editorial heading ── */
+  .heading {
+    @apply font-display tracking-tight;
+    font-optical-sizing: auto;
+  }
+
+  /* ── Staggered children ── */
+  .stagger > * { animation-fill-mode: both; }
+  .stagger > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger > *:nth-child(2) { animation-delay: 80ms; }
+  .stagger > *:nth-child(3) { animation-delay: 160ms; }
+  .stagger > *:nth-child(4) { animation-delay: 240ms; }
+  .stagger > *:nth-child(5) { animation-delay: 320ms; }
+  .stagger > *:nth-child(6) { animation-delay: 400ms; }
+
+  /* ── Chat prose ── */
   .prose-chat {
-    @apply text-[15px] leading-relaxed;
+    @apply text-[15px] leading-[1.7] font-body;
   }
-  .prose-chat p {
-    @apply mb-3 last:mb-0;
-  }
-  .prose-chat ul {
-    @apply mb-3 list-disc pl-5;
-  }
-  .prose-chat ol {
-    @apply mb-3 list-decimal pl-5;
-  }
-  .prose-chat li {
-    @apply mb-1;
-  }
-  .prose-chat strong {
-    @apply font-semibold;
-  }
+  .prose-chat p { @apply mb-3 last:mb-0; }
+  .prose-chat ul { @apply mb-3 list-disc pl-5; }
+  .prose-chat ol { @apply mb-3 list-decimal pl-5; }
+  .prose-chat li { @apply mb-1; }
+  .prose-chat strong { @apply font-semibold; }
   .prose-chat code {
-    @apply rounded-md bg-muted px-1.5 py-0.5 text-[13px] font-mono;
+    @apply rounded-md bg-ocean-50 px-1.5 py-0.5 text-[13px] font-mono text-ocean-700 dark:bg-ocean-900/50 dark:text-ocean-200;
   }
-  .prose-chat h1,
-  .prose-chat h2,
-  .prose-chat h3 {
-    @apply mb-2 mt-4 font-semibold;
+  .prose-chat h1, .prose-chat h2, .prose-chat h3 {
+    @apply mb-2 mt-4 font-display font-semibold;
   }
   .prose-chat a {
-    @apply text-teal-600 underline underline-offset-2 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300;
+    @apply text-ocean-600 underline decoration-ocean-300 underline-offset-2 hover:decoration-ocean-500 dark:text-ocean-400;
   }
 
-  /* Glass panel */
-  .glass {
-    @apply bg-white/70 backdrop-blur-xl dark:bg-background/70;
+  /* ── Hover lift ── */
+  .lift {
+    @apply transition-all duration-300 ease-out;
   }
-
-  /* Shimmer skeleton loading */
-  .skeleton {
-    @apply bg-gradient-to-r from-muted via-muted/50 to-muted bg-[length:200%_100%] animate-shimmer rounded-lg;
-  }
-
-  /* Gradient text */
-  .text-gradient {
-    @apply bg-gradient-to-r from-teal-600 via-teal-500 to-teal-400 bg-clip-text text-transparent;
-  }
-  .dark .text-gradient {
-    @apply from-teal-400 via-teal-300 to-teal-200;
-  }
-
-  /* Glow ring on hover */
-  .hover-glow {
-    @apply transition-shadow duration-300 hover:shadow-glow;
-  }
-
-  /* Subtle card hover lift */
-  .hover-lift {
-    @apply transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-soft-lg;
-  }
-
-  /* Stagger children animations */
-  .stagger-children > *:nth-child(1) { animation-delay: 0ms; }
-  .stagger-children > *:nth-child(2) { animation-delay: 60ms; }
-  .stagger-children > *:nth-child(3) { animation-delay: 120ms; }
-  .stagger-children > *:nth-child(4) { animation-delay: 180ms; }
-  .stagger-children > *:nth-child(5) { animation-delay: 240ms; }
-  .stagger-children > *:nth-child(6) { animation-delay: 300ms; }
-  .stagger-children > * {
-    animation-fill-mode: both;
+  .lift:hover {
+    @apply -translate-y-1 shadow-warm-lg;
   }
 }
 
 @layer utilities {
-  /* Dot grid background */
-  .bg-dot-grid {
-    background-image: radial-gradient(circle, hsl(var(--border)) 1px, transparent 1px);
-    background-size: 24px 24px;
+  .text-balance {
+    text-wrap: balance;
   }
 }

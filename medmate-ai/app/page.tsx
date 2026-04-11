@@ -21,37 +21,37 @@ const features = [
     icon: MessageSquareHeart,
     title: "AI Chat with an Australian GP mindset",
     body: "Describe your symptoms in plain language. MedMate asks the right clarifying questions and explains things the way a good Aussie GP would.",
-    accent: "from-teal-400 to-emerald-500",
+    accent: "from-ocean-400 to-ocean-600",
   },
   {
     icon: ClipboardList,
     title: "Guided symptom checker",
     body: "Step through body area, symptoms, duration and severity. Get a clear triage recommendation in minutes.",
-    accent: "from-blue-400 to-teal-500",
+    accent: "from-ocean-300 to-ocean-500",
   },
   {
     icon: User,
     title: "Health profile",
     body: "Save your conditions, medications and allergies once. MedMate personalises every response without asking again.",
-    accent: "from-violet-400 to-blue-500",
+    accent: "from-sage-400 to-sage-600",
   },
   {
     icon: Video,
     title: "Book a real telehealth consult",
     body: "If you need a doctor, book a telehealth appointment with an Australian GP. Bulk-billed when eligible.",
-    accent: "from-amber-400 to-orange-500",
+    accent: "from-coral-400 to-coral-600",
   },
   {
     icon: Shield,
     title: "Private by design",
     body: "Your conversations are yours. Encrypted in transit, stored securely, and never sold or used to train models.",
-    accent: "from-emerald-400 to-green-500",
+    accent: "from-sage-500 to-sage-700",
   },
   {
     icon: HeartPulse,
     title: "Built for Australia",
     body: "Knows Medicare, the PBS, Mental Health Care Plans, Chronic Disease Management, Healthdirect, 13HEALTH and more.",
-    accent: "from-rose-400 to-pink-500",
+    accent: "from-coral-500 to-coral-700",
   },
 ];
 
@@ -66,15 +66,15 @@ const pathways = [
   },
   {
     label: "See your GP in 24\u201348h",
-    tone: "bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/30 dark:text-amber-300 dark:border-amber-900/40",
+    tone: "bg-coral-50 text-coral-800 border-coral-200 dark:bg-coral-900/30 dark:text-coral-300 dark:border-coral-900/40",
   },
   {
     label: "Book telehealth",
-    tone: "bg-teal-50 text-teal-700 border-teal-200 dark:bg-teal-950/30 dark:text-teal-300 dark:border-teal-900/40",
+    tone: "bg-ocean-50 text-ocean-700 border-ocean-200 dark:bg-ocean-950/30 dark:text-ocean-300 dark:border-ocean-900/40",
   },
   {
     label: "Manage at home",
-    tone: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-900/40",
+    tone: "bg-sage-50 text-sage-700 border-sage-200 dark:bg-sage-900/30 dark:text-sage-300 dark:border-sage-900/40",
   },
 ];
 
@@ -114,13 +114,13 @@ export default function HomePage() {
     <div>
       {/* ─── Hero ─── */}
       <section className="relative overflow-hidden">
-        {/* Background layers */}
-        <div className="absolute inset-0 -z-10 bg-hero-pattern dark:bg-hero-pattern-dark" />
-        <div className="absolute inset-0 -z-10 bg-dot-grid opacity-[0.35] dark:opacity-[0.15]" />
+        {/* Mesh gradient background */}
+        <div className="absolute inset-0 -z-10 mesh-gradient" />
 
-        {/* Decorative blobs */}
-        <div className="absolute -right-40 -top-40 -z-10 h-80 w-80 rounded-full bg-teal-200/30 blur-3xl dark:bg-teal-800/20" />
-        <div className="absolute -left-32 top-1/2 -z-10 h-64 w-64 rounded-full bg-amber-200/20 blur-3xl dark:bg-amber-800/10" />
+        {/* Organic blob shapes */}
+        <div className="absolute -right-40 -top-40 -z-10 h-80 w-80 blob bg-ocean-200/30 blur-3xl dark:bg-ocean-800/20" />
+        <div className="absolute -left-32 top-1/2 -z-10 h-64 w-64 blob bg-coral-200/20 blur-3xl dark:bg-coral-800/10" aria-hidden />
+        <div className="absolute bottom-0 right-1/4 -z-10 h-48 w-48 blob bg-sage-200/20 blur-3xl dark:bg-sage-800/10" aria-hidden />
 
         <div className="container py-24 md:py-36">
           <div className="mx-auto max-w-3xl text-center">
@@ -128,21 +128,23 @@ export default function HomePage() {
               variant="secondary"
               className="mb-6 animate-fade-in px-4 py-1.5 text-xs"
             >
-              <Sparkles className="mr-1.5 h-3.5 w-3.5 text-amber-500" />
+              <Sparkles className="mr-1.5 h-3.5 w-3.5 text-coral-500" />
               Free &middot; Private &middot; 24/7
             </Badge>
 
-            <h1 className="animate-fade-in-up text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="heading animate-fade-up text-4xl font-extrabold sm:text-5xl md:text-6xl lg:text-7xl">
               Your Personal AI Doctor,{" "}
-              <span className="text-gradient">Built&nbsp;for&nbsp;Australia</span>
+              <span className="bg-gradient-to-r from-ocean-500 via-ocean-400 to-sage-500 bg-clip-text text-transparent">
+                Built&nbsp;for&nbsp;Australia
+              </span>
             </h1>
 
-            <p className="mx-auto mt-6 max-w-2xl animate-fade-in-up text-lg leading-relaxed text-muted-foreground [animation-delay:100ms]">
+            <p className="mx-auto mt-6 max-w-2xl animate-fade-up text-lg leading-relaxed text-muted-foreground [animation-delay:100ms]">
               Free, private, 24/7 health guidance — designed around Medicare,
               the PBS, and how healthcare actually works here.
             </p>
 
-            <div className="mt-10 flex animate-fade-in-up flex-col items-center justify-center gap-3 [animation-delay:200ms] sm:flex-row">
+            <div className="mt-10 flex animate-fade-up flex-col items-center justify-center gap-3 [animation-delay:200ms] sm:flex-row">
               <Link href="/chat">
                 <Button size="xl" className="group w-full sm:w-auto">
                   Start a consultation
@@ -171,9 +173,9 @@ export default function HomePage() {
             {stats.map((s) => (
               <div
                 key={s.value}
-                className="flex flex-col items-center rounded-2xl border border-border/50 bg-card/60 px-4 py-5 text-center shadow-soft backdrop-blur-sm"
+                className="flex flex-col items-center rounded-2xl border border-border/50 bg-card/60 px-4 py-5 text-center shadow-warm backdrop-blur-sm"
               >
-                <span className="text-2xl font-bold text-teal-600 dark:text-teal-400">
+                <span className="heading text-2xl font-bold text-ocean-600 dark:text-ocean-400">
                   {s.value}
                 </span>
                 <span className="mt-1 text-xs text-muted-foreground">
@@ -206,12 +208,14 @@ export default function HomePage() {
       <section className="container py-24">
         <div className="mx-auto mb-14 max-w-2xl text-center">
           <Badge variant="secondary" className="mb-4">
-            <Zap className="mr-1.5 h-3 w-3 text-amber-500" />
+            <Zap className="mr-1.5 h-3 w-3 text-coral-500" />
             Everything you need
           </Badge>
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+          <h2 className="heading text-3xl font-bold md:text-4xl">
             Health guidance that actually{" "}
-            <span className="text-gradient">understands Australia</span>
+            <span className="bg-gradient-to-r from-ocean-500 to-sage-500 bg-clip-text text-transparent">
+              understands Australia
+            </span>
           </h2>
           <p className="mt-4 text-muted-foreground">
             MedMate feels like a good conversation with a thoughtful Australian
@@ -220,11 +224,11 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="stagger-children grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="stagger grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
             <Card
               key={f.title}
-              className="group animate-fade-in-up hover-lift cursor-default"
+              className="group lift animate-fade-up cursor-default"
             >
               <CardContent className="p-6">
                 <div
@@ -232,7 +236,7 @@ export default function HomePage() {
                 >
                   <f.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mb-2 text-base font-semibold">{f.title}</h3>
+                <h3 className="heading mb-2 text-base font-semibold">{f.title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">
                   {f.body}
                 </p>
@@ -244,23 +248,22 @@ export default function HomePage() {
 
       {/* ─── Australia-focused section ─── */}
       <section className="relative overflow-hidden py-24">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-teal-600 via-teal-500 to-teal-700" />
-        <div className="absolute inset-0 -z-10 bg-dot-grid opacity-10" />
-        <div className="absolute -right-20 -top-20 -z-10 h-72 w-72 rounded-full bg-teal-300/20 blur-3xl" />
-        <div className="absolute -bottom-20 -left-20 -z-10 h-72 w-72 rounded-full bg-amber-300/10 blur-3xl" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-ocean-600 via-ocean-500 to-ocean-700" />
+        <div className="absolute -right-20 -top-20 -z-10 h-72 w-72 blob bg-ocean-300/20 blur-3xl" />
+        <div className="absolute -bottom-20 -left-20 -z-10 h-72 w-72 blob bg-coral-300/10 blur-3xl" />
 
         <div className="container">
           <div className="grid items-center gap-12 md:grid-cols-2">
             <div>
-              <Badge className="mb-5 border-teal-300/30 bg-white/15 text-white backdrop-blur-sm">
+              <Badge className="mb-5 border-ocean-300/30 bg-white/15 text-white backdrop-blur-sm">
                 <HeartPulse className="mr-1.5 h-3 w-3" />
                 Australian-first
               </Badge>
-              <h2 className="text-3xl font-bold text-white md:text-4xl">
+              <h2 className="heading text-3xl font-bold text-white md:text-4xl">
                 Australia&apos;s healthcare system is world-class. MedMate helps
                 you navigate it.
               </h2>
-              <p className="mt-5 text-base leading-relaxed text-teal-50/90">
+              <p className="mt-5 text-base leading-relaxed text-ocean-50/90">
                 Knowing when to see a GP, when to go to ED, and when you need a
                 specialist referral is the hard part. MedMate is built around the
                 way care actually works here.
@@ -279,8 +282,8 @@ export default function HomePage() {
                   key={item}
                   className="flex items-start gap-3 rounded-xl bg-white/10 px-4 py-3 backdrop-blur-sm"
                 >
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" />
-                  <span className="text-sm font-medium text-teal-50">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-coral-300" />
+                  <span className="text-sm font-medium text-ocean-50">
                     {item}
                   </span>
                 </li>
@@ -294,10 +297,10 @@ export default function HomePage() {
       <section className="container py-24">
         <div className="mx-auto mb-14 max-w-2xl text-center">
           <Badge variant="secondary" className="mb-4">
-            <Star className="mr-1.5 h-3 w-3 text-amber-500" />
+            <Star className="mr-1.5 h-3 w-3 text-coral-500" />
             What people say
           </Badge>
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+          <h2 className="heading text-3xl font-bold tracking-tight md:text-4xl">
             Trusted by Australians, everywhere
           </h2>
           <p className="mt-4 text-muted-foreground">
@@ -306,11 +309,11 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="stagger-children grid gap-6 md:grid-cols-3">
+        <div className="stagger grid gap-6 md:grid-cols-3">
           {testimonials.map((t) => (
             <Card
               key={t.name}
-              className="group animate-fade-in-up hover-lift cursor-default"
+              className="group lift animate-fade-up cursor-default"
             >
               <CardContent className="flex h-full flex-col p-6">
                 {/* Stars */}
@@ -318,7 +321,7 @@ export default function HomePage() {
                   {Array.from({ length: t.stars }).map((_, i) => (
                     <Star
                       key={i}
-                      className="h-4 w-4 fill-amber-400 text-amber-400"
+                      className="h-4 w-4 fill-coral-400 text-coral-400"
                     />
                   ))}
                 </div>
@@ -326,7 +329,7 @@ export default function HomePage() {
                   &ldquo;{t.quote}&rdquo;
                 </p>
                 <div className="mt-5 flex items-center gap-3 border-t border-border/40 pt-4">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-teal-400 to-teal-600 text-xs font-bold text-white">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-ocean-400 to-ocean-600 text-xs font-bold text-white">
                     {t.name[0]}
                   </div>
                   <div>
@@ -344,17 +347,17 @@ export default function HomePage() {
 
       {/* ─── CTA ─── */}
       <section className="container pb-24">
-        <Card className="relative overflow-hidden border-teal-200/50 dark:border-teal-800/40">
+        <Card className="relative overflow-hidden border-ocean-200/50 dark:border-ocean-800/40">
           {/* Background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-teal-50 via-background to-amber-50/30 dark:from-teal-950/30 dark:via-background dark:to-amber-950/10" />
-          <div className="absolute -right-32 -top-32 h-64 w-64 rounded-full bg-teal-200/30 blur-3xl dark:bg-teal-800/15" />
-          <div className="absolute -bottom-32 -left-32 h-64 w-64 rounded-full bg-amber-200/20 blur-3xl dark:bg-amber-800/10" />
+          <div className="absolute inset-0 bg-gradient-to-br from-ocean-50 via-background to-coral-50/30 dark:from-ocean-950/30 dark:via-background dark:to-coral-950/10" />
+          <div className="absolute -right-32 -top-32 h-64 w-64 blob bg-ocean-200/30 blur-3xl dark:bg-ocean-800/15" />
+          <div className="absolute -bottom-32 -left-32 h-64 w-64 blob bg-coral-200/20 blur-3xl dark:bg-coral-800/10" />
 
           <CardContent className="relative p-10 text-center md:p-16">
-            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25 animate-float-gentle">
+            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-lg shadow-ocean-500/25 animate-float">
               <MessageSquareHeart className="h-7 w-7" />
             </div>
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            <h2 className="heading text-3xl font-bold tracking-tight md:text-4xl">
               Got a health question right now?
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">

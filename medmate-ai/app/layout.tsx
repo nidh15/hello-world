@@ -1,13 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Fraunces, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/layout/nav";
 import { Footer } from "@/components/layout/footer";
 import { DisclaimerBanner } from "@/components/layout/disclaimer-banner";
 
-const inter = Inter({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-display",
+  display: "swap",
+  axes: ["opsz"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-body",
   display: "swap",
 });
 
@@ -40,8 +47,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FAFAF9" },
-    { media: "(prefers-color-scheme: dark)", color: "#0D7377" },
+    { media: "(prefers-color-scheme: light)", color: "#FDF6F0" },
+    { media: "(prefers-color-scheme: dark)", color: "#0C1222" },
   ],
 };
 
@@ -52,7 +59,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-AU" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans`}>
+      <body
+        className={`${fraunces.variable} ${dmSans.variable} font-body antialiased`}
+      >
+        <div className="grain" aria-hidden />
         <DisclaimerBanner />
         <Nav />
         <main className="min-h-[calc(100vh-8rem)]">{children}</main>

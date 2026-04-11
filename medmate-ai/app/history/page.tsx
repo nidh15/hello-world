@@ -26,9 +26,9 @@ import type { Consultation, TriageLevel } from "@/types";
 const triageLabels: Record<TriageLevel, { label: string; cls: string }> = {
   emergency: { label: "Call 000", cls: "bg-red-100 text-red-800" },
   urgent: { label: "Emergency Dept", cls: "bg-orange-100 text-orange-800" },
-  "see-gp-soon": { label: "See GP soon", cls: "bg-amber-100 text-amber-900" },
-  telehealth: { label: "Telehealth", cls: "bg-teal-100 text-teal-800" },
-  "self-care": { label: "Self-care", cls: "bg-emerald-100 text-emerald-800" },
+  "see-gp-soon": { label: "See GP soon", cls: "bg-coral-100 text-coral-900" },
+  telehealth: { label: "Telehealth", cls: "bg-ocean-100 text-ocean-800" },
+  "self-care": { label: "Self-care", cls: "bg-sage-100 text-sage-800" },
 };
 
 export default function HistoryPage() {
@@ -129,11 +129,11 @@ export default function HistoryPage() {
   return (
     <div className="container max-w-3xl py-10">
       <div className="mb-8 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/25">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-lg shadow-ocean-500/25">
           <FileText className="h-6 w-6" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold">Consultation history</h1>
+          <h1 className="heading text-2xl font-bold">Consultation history</h1>
           <p className="text-sm text-muted-foreground">
             Your past chats, summarised and searchable.
           </p>
@@ -223,10 +223,10 @@ function EmptyHistory() {
   return (
     <Card>
       <CardContent className="flex flex-col items-center gap-4 py-16 text-center">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-lg shadow-teal-500/20 animate-float-gentle">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-lg shadow-ocean-500/20 animate-float">
           <Stethoscope className="h-7 w-7" />
         </div>
-        <h2 className="text-lg font-bold">No consultations yet</h2>
+        <h2 className="heading text-lg font-bold">No consultations yet</h2>
         <p className="max-w-sm text-sm text-muted-foreground">
           Your saved consultations will appear here. Start a chat with MedMate
           to get going.
