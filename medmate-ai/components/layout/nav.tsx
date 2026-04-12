@@ -7,9 +7,9 @@ import {
   Menu,
   X,
   MessageSquareHeart,
-  ClipboardList,
   Video,
-  FileText,
+  Pill,
+  HeartPulse,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -17,9 +17,9 @@ import { Button } from "@/components/ui/button";
 
 const navItems = [
   { href: "/chat", label: "AI Chat", icon: MessageSquareHeart },
-  { href: "/symptom-checker", label: "Symptom checker", icon: ClipboardList },
   { href: "/telehealth", label: "Telehealth", icon: Video },
-  { href: "/history", label: "History", icon: FileText },
+  { href: "/escripts", label: "eScripts", icon: Pill },
+  { href: "/chronic-care", label: "Chronic care", icon: HeartPulse },
 ];
 
 export function Nav() {
@@ -38,7 +38,7 @@ export function Nav() {
             <Stethoscope className="h-5 w-5" />
           </span>
           <span className="flex items-baseline gap-0.5 font-display">
-            MedMate{" "}
+            OzDoc{" "}
             <span className="bg-gradient-to-r from-ocean-500 to-ocean-400 bg-clip-text text-transparent">
               AI
             </span>

@@ -133,7 +133,7 @@ export default function SymptomCheckerPage() {
         <div>
           <h1 className="heading text-2xl font-bold">Symptom checker</h1>
           <p className="text-sm text-muted-foreground">
-            A quick, guided walkthrough to help MedMate triage your concern.
+            A quick, guided walkthrough to help OzDoc triage your concern.
           </p>
         </div>
       </div>
@@ -323,7 +323,7 @@ export default function SymptomCheckerPage() {
             <div className="space-y-3 text-sm">
               <p className="text-muted-foreground">
                 Here&apos;s what you&apos;ve told us. Continue to chat with
-                MedMate for a provisional assessment and clear next step.
+                OzDoc for a provisional assessment and clear next step.
               </p>
               <div className="rounded-xl border border-border bg-muted/30 p-4">
                 <ReviewRow label="Body area" value={input.bodyArea || "—"} />

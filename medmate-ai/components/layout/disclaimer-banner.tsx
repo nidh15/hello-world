@@ -17,7 +17,7 @@ export function DisclaimerBanner() {
             <Phone className="h-3 w-3" />
             000
           </a>{" "}
-          immediately. MedMate AI is not a doctor and does not provide medical
+          immediately. OzDoc AI is not a doctor and does not provide medical
           advice.
         </p>
       </div>

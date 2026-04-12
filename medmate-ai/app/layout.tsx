@@ -20,8 +20,8 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "MedMate AI — Your Personal AI Doctor, Built for Australia",
-    template: "%s | MedMate AI",
+    default: "OzDoc AI — Your Personal AI Doctor, Built for Australia",
+    template: "%s | OzDoc AI",
   },
   description:
     "Free, private, 24/7 health guidance from an AI assistant built around Medicare, the PBS, and how Australian healthcare actually works.",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     "PBS",
   ],
   openGraph: {
-    title: "MedMate AI — Your Personal AI Doctor, Built for Australia",
+    title: "OzDoc AI — Your Personal AI Doctor, Built for Australia",
     description:
       "Free, private, 24/7 health guidance from an AI assistant built around Medicare, the PBS, and Australian care pathways.",
     type: "website",

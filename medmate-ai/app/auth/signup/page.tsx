@@ -82,7 +82,7 @@ export default function SignupPage() {
                 <UserPlus className="h-3 w-3 text-white" />
               </div>
             </div>
-            <h1 className="heading text-2xl font-bold">Create your MedMate account</h1>
+            <h1 className="heading text-2xl font-bold">Create your OzDoc account</h1>
             <p className="mt-1.5 text-sm text-muted-foreground">
               Free forever. Save your health profile and consultation history.
             </p>
@@ -135,7 +135,7 @@ export default function SignupPage() {
                 className="mt-0.5 h-4 w-4 rounded border-border text-ocean-500 focus:ring-ocean-500"
               />
               <span className="leading-relaxed">
-                I understand that MedMate AI is not a doctor and does not provide
+                I understand that OzDoc AI is not a doctor and does not provide
                 medical advice. I accept the{" "}
                 <Link
                   href="/terms"

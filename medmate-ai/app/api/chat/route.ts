@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
         const message =
           err instanceof Error ? err.message : "Unknown streaming error";
         controller.enqueue(
-          encoder.encode(`\n\n[MedMate error: ${message}]`),
+          encoder.encode(`\n\n[OzDoc error: ${message}]`),
         );
       } finally {
         controller.close();

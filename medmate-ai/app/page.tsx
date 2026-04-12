@@ -1,16 +1,18 @@
 import Link from "next/link";
 import {
   MessageSquareHeart,
-  ClipboardList,
   Shield,
   Video,
-  User,
   Sparkles,
   HeartPulse,
   CheckCircle2,
   ArrowRight,
   Star,
   Zap,
+  Pill,
+  FileText,
+  Building2,
+  Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,39 +21,70 @@ import { Badge } from "@/components/ui/badge";
 const features = [
   {
     icon: MessageSquareHeart,
-    title: "AI Chat with an Australian GP mindset",
-    body: "Describe your symptoms in plain language. MedMate asks the right clarifying questions and explains things the way a good Aussie GP would.",
+    title: "Structured clinical questioning",
+    body: "OzDoc asks the right clarifying questions across multiple turns — site, onset, severity, triggers — the way a good GP actually takes a history.",
     accent: "from-ocean-400 to-ocean-600",
   },
   {
-    icon: ClipboardList,
-    title: "Guided symptom checker",
-    body: "Step through body area, symptoms, duration and severity. Get a clear triage recommendation in minutes.",
+    icon: Video,
+    title: "AHPRA-registered GPs in under 30 minutes",
+    body: "Need a real doctor? Book a telehealth consult with an Australian GP for $59 (or bulk-billed when eligible). No waiting room.",
+    accent: "from-coral-400 to-coral-600",
+    href: "/telehealth",
+  },
+  {
+    icon: FileText,
+    title: "AI consultation notes sent to your GP",
+    body: "Before your telehealth call, your GP gets an AI-generated summary of your symptoms, history and questions — so the consult starts at minute one.",
     accent: "from-ocean-300 to-ocean-500",
   },
   {
-    icon: User,
-    title: "Health profile",
-    body: "Save your conditions, medications and allergies once. MedMate personalises every response without asking again.",
+    icon: Pill,
+    title: "eScripts to your nearest pharmacy",
+    body: "If you need medication, your GP sends an electronic prescription straight to any pharmacy in Australia. PBS pricing where eligible.",
     accent: "from-sage-400 to-sage-600",
-  },
-  {
-    icon: Video,
-    title: "Book a real telehealth consult",
-    body: "If you need a doctor, book a telehealth appointment with an Australian GP. Bulk-billed when eligible.",
-    accent: "from-coral-400 to-coral-600",
-  },
-  {
-    icon: Shield,
-    title: "Private by design",
-    body: "Your conversations are yours. Encrypted in transit, stored securely, and never sold or used to train models.",
-    accent: "from-sage-500 to-sage-700",
+    href: "/escripts",
   },
   {
     icon: HeartPulse,
-    title: "Built for Australia",
-    body: "Knows Medicare, the PBS, Mental Health Care Plans, Chronic Disease Management, Healthdirect, 13HEALTH and more.",
+    title: "Chronic care, month after month",
+    body: "Diabetes, asthma, blood pressure, COPD, mental health — OzDoc checks in monthly, tracks changes, and flags anything that needs your GP.",
     accent: "from-coral-500 to-coral-700",
+    href: "/chronic-care",
+  },
+  {
+    icon: Shield,
+    title: "Private by design. Australian-hosted.",
+    body: "Your data stays in Australia. Encrypted end-to-end. Never sold. Never used to train AI. Delete it all at any time.",
+    accent: "from-sage-500 to-sage-700",
+    href: "/privacy",
+  },
+];
+
+const howItWorks = [
+  {
+    num: 1,
+    icon: MessageSquareHeart,
+    title: "Chat with OzDoc",
+    body: "Describe what's going on. OzDoc asks structured clinical questions and gives you a clear triage recommendation.",
+  },
+  {
+    num: 2,
+    icon: FileText,
+    title: "Get a summary",
+    body: "OzDoc writes up your symptoms, history, and key questions — ready to share with your GP.",
+  },
+  {
+    num: 3,
+    icon: Video,
+    title: "See a GP in <30 minutes",
+    body: "If you need a doctor, book a telehealth consult for $59. The GP reviews your OzDoc summary before the call.",
+  },
+  {
+    num: 4,
+    icon: Pill,
+    title: "eScript to your pharmacy",
+    body: "If you need medication, the GP sends an eScript straight to your chosen pharmacy. Pick it up and go.",
   },
 ];
 
@@ -81,7 +114,7 @@ const pathways = [
 const testimonials = [
   {
     quote:
-      "I was worried about a headache that wouldn\u2019t shift. MedMate asked good questions, flagged red flags to watch for, and told me to book a GP that week. Felt like a triage nurse on my phone.",
+      "I was worried about a headache that wouldn\u2019t shift. OzDoc asked good questions, flagged red flags to watch for, and told me to book a GP that week. Felt like a triage nurse on my phone.",
     name: "Steph",
     location: "Brunswick, VIC",
     stars: 5,
@@ -103,10 +136,10 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: "24/7", label: "Available around the clock" },
-  { value: "Free", label: "No cost, no hidden fees" },
-  { value: "Private", label: "Your data stays yours" },
-  { value: "AU", label: "Built for Australia" },
+  { value: "24/7", label: "AI triage around the clock" },
+  { value: "<30 min", label: "To a real AHPRA GP" },
+  { value: "$59", label: "Telehealth (or bulk-billed)" },
+  { value: "AU", label: "Data stays in Australia" },
 ];
 
 export default function HomePage() {
@@ -129,19 +162,20 @@ export default function HomePage() {
               className="mb-6 animate-fade-in px-4 py-1.5 text-xs"
             >
               <Sparkles className="mr-1.5 h-3.5 w-3.5 text-coral-500" />
-              Free &middot; Private &middot; 24/7
+              AI triage &middot; Real GPs &middot; eScripts
             </Badge>
 
             <h1 className="heading animate-fade-up text-4xl font-extrabold sm:text-5xl md:text-6xl lg:text-7xl">
-              Your Personal AI Doctor,{" "}
+              Your AI Health Companion,{" "}
               <span className="bg-gradient-to-r from-ocean-500 via-ocean-400 to-sage-500 bg-clip-text text-transparent">
                 Built&nbsp;for&nbsp;Australia
               </span>
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl animate-fade-up text-lg leading-relaxed text-muted-foreground [animation-delay:100ms]">
-              Free, private, 24/7 health guidance — designed around Medicare,
-              the PBS, and how healthcare actually works here.
+              Free AI triage around the clock. AHPRA-registered GPs in under 30
+              minutes for $59. eScripts to your pharmacy. Chronic care that
+              checks in every month. All designed around Medicare and the PBS.
             </p>
 
             <div className="mt-10 flex animate-fade-up flex-col items-center justify-center gap-3 [animation-delay:200ms] sm:flex-row">
@@ -218,31 +252,107 @@ export default function HomePage() {
             </span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            MedMate feels like a good conversation with a thoughtful Australian
+            OzDoc feels like a good conversation with a thoughtful Australian
             GP — not a chatbot, not a symptom lookup, not a US product bolted
             onto Medicare.
           </p>
         </div>
 
         <div className="stagger grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((f) => (
-            <Card
-              key={f.title}
-              className="group lift animate-fade-up cursor-default"
-            >
-              <CardContent className="p-6">
-                <div
-                  className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${f.accent} text-white shadow-md transition-transform duration-300 group-hover:scale-110`}
-                >
-                  <f.icon className="h-5 w-5" />
+          {features.map((f) => {
+            const card = (
+              <Card className="group lift h-full animate-fade-up cursor-default">
+                <CardContent className="p-6">
+                  <div
+                    className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${f.accent} text-white shadow-md transition-transform duration-300 group-hover:scale-110`}
+                  >
+                    <f.icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="heading mb-2 text-base font-semibold">
+                    {f.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {f.body}
+                  </p>
+                  {f.href && (
+                    <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-ocean-600 dark:text-ocean-400">
+                      Learn more
+                      <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" />
+                    </span>
+                  )}
+                </CardContent>
+              </Card>
+            );
+            return f.href ? (
+              <Link key={f.title} href={f.href} className="block">
+                {card}
+              </Link>
+            ) : (
+              <div key={f.title}>{card}</div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ─── How it works ─── */}
+      <section className="relative overflow-hidden py-24">
+        <div className="absolute -right-40 top-0 -z-10 h-80 w-80 blob bg-ocean-200/30 blur-3xl dark:bg-ocean-800/15" />
+        <div className="absolute -left-32 bottom-0 -z-10 h-64 w-64 blob bg-sage-200/20 blur-3xl dark:bg-sage-800/10" />
+
+        <div className="container">
+          <div className="mx-auto mb-14 max-w-2xl text-center">
+            <Badge variant="secondary" className="mb-4">
+              <Clock className="mr-1.5 h-3 w-3 text-coral-500" />
+              From symptom to script
+            </Badge>
+            <h2 className="heading text-3xl font-bold md:text-4xl">
+              End-to-end care, not just{" "}
+              <span className="bg-gradient-to-r from-ocean-500 to-sage-500 bg-clip-text text-transparent">
+                a chatbot
+              </span>
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              OzDoc takes you from &ldquo;I don&apos;t feel well&rdquo; to
+              &ldquo;medication in hand&rdquo; without a single waiting room.
+              Here&apos;s how it works.
+            </p>
+          </div>
+
+          <div className="stagger grid gap-4 md:grid-cols-4">
+            {howItWorks.map((step) => (
+              <div
+                key={step.num}
+                className="relative animate-fade-up rounded-2xl border border-border/60 bg-card p-6 shadow-warm"
+              >
+                <div className="absolute -top-3 left-6 flex h-7 items-center justify-center rounded-full bg-gradient-to-r from-ocean-500 to-ocean-600 px-3 text-xs font-bold text-white shadow-md shadow-ocean-500/25">
+                  Step {step.num}
                 </div>
-                <h3 className="heading mb-2 text-base font-semibold">{f.title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {f.body}
+                <div className="mb-4 mt-2 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-ocean-400 to-ocean-600 text-white shadow-md shadow-ocean-500/20">
+                  <step.icon className="h-5 w-5" />
+                </div>
+                <h3 className="heading mb-2 text-sm font-semibold">
+                  {step.title}
+                </h3>
+                <p className="text-xs leading-relaxed text-muted-foreground">
+                  {step.body}
                 </p>
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link href="/chat">
+              <Button size="lg" className="group">
+                Start a consultation
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </Button>
+            </Link>
+            <Link href="/telehealth">
+              <Button size="lg" variant="outline">
+                Book telehealth
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -260,12 +370,12 @@ export default function HomePage() {
                 Australian-first
               </Badge>
               <h2 className="heading text-3xl font-bold text-white md:text-4xl">
-                Australia&apos;s healthcare system is world-class. MedMate helps
+                Australia&apos;s healthcare system is world-class. OzDoc helps
                 you navigate it.
               </h2>
               <p className="mt-5 text-base leading-relaxed text-ocean-50/90">
                 Knowing when to see a GP, when to go to ED, and when you need a
-                specialist referral is the hard part. MedMate is built around the
+                specialist referral is the hard part. OzDoc is built around the
                 way care actually works here.
               </p>
             </div>
@@ -273,10 +383,12 @@ export default function HomePage() {
               {[
                 "GP referral pathways to specialists",
                 "Mental Health Care Plans \u2014 10 Medicare-subsidised sessions",
-                "Chronic Disease Management Plans",
+                "Chronic Disease Management (GPMP & TCA) Plans",
+                "Medicare item 715 \u2014 Aboriginal and Torres Strait Islander health assessment",
                 "PBS medication names (not US brand names)",
                 "Bulk billing and out-of-pocket cost guidance",
-                "Healthdirect, 13HEALTH and RFDS for remote access",
+                "Healthdirect, 13HEALTH, NURSE-ON-CALL and RFDS",
+                "PATS support for rural and remote travel",
               ].map((item) => (
                 <li
                   key={item}
@@ -304,7 +416,7 @@ export default function HomePage() {
             Trusted by Australians, everywhere
           </h2>
           <p className="mt-4 text-muted-foreground">
-            From inner-city apartments to remote stations — MedMate meets people
+            From inner-city apartments to remote stations — OzDoc meets people
             where they are.
           </p>
         </div>
@@ -345,6 +457,39 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ─── Enterprise strip ─── */}
+      <section className="container py-16">
+        <Card className="relative overflow-hidden border-ocean-200/50 dark:border-ocean-800/40">
+          <div className="absolute inset-0 bg-gradient-to-br from-sage-50/60 via-background to-ocean-50/40 dark:from-sage-950/20 dark:via-background dark:to-ocean-950/20" />
+          <div className="absolute -right-20 -top-20 h-48 w-48 blob bg-sage-200/30 blur-3xl dark:bg-sage-800/10" />
+
+          <CardContent className="relative grid items-center gap-8 p-10 md:grid-cols-[1fr_auto] md:p-14">
+            <div>
+              <Badge variant="secondary" className="mb-4">
+                <Building2 className="mr-1.5 h-3 w-3 text-ocean-500" />
+                For business
+              </Badge>
+              <h2 className="heading text-2xl font-bold md:text-3xl">
+                Bring OzDoc to your members, patients, or team
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                White-label the OzDoc clinical engine. API access, chronic care
+                at scale, and Australian-context triage for insurers, health
+                systems, employers, and pharmacies.
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <Link href="/enterprise">
+                <Button size="lg" variant="outline" className="group">
+                  OzDoc for Business
+                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
       {/* ─── CTA ─── */}
       <section className="container pb-24">
         <Card className="relative overflow-hidden border-ocean-200/50 dark:border-ocean-800/40">
@@ -361,7 +506,7 @@ export default function HomePage() {
               Got a health question right now?
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-              Start a free consultation with MedMate. No signup, no payment, no
+              Start a free consultation with OzDoc. No signup, no payment, no
               waiting room.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

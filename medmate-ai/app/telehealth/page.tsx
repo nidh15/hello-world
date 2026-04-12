@@ -10,6 +10,8 @@ import {
   Stethoscope,
   ArrowRight,
   Loader2,
+  FileText,
+  Pill,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -83,7 +85,7 @@ export default function TelehealthPage() {
         <div>
           <h1 className="heading text-2xl font-bold">Book a telehealth consult</h1>
           <p className="text-sm text-muted-foreground">
-            Video or phone consult with an Australian-registered GP.
+            AHPRA-registered GP in under 30 minutes. $59 AUD or bulk-billed.
           </p>
         </div>
       </div>
@@ -91,27 +93,68 @@ export default function TelehealthPage() {
       <div className="mb-6 grid gap-3 sm:grid-cols-3">
         <InfoTile
           icon={<Clock className="h-4 w-4" />}
-          title="15 min consult"
-          body="Average wait under 10 minutes."
+          title="Under 30 minutes"
+          body="See an available GP in under 30 minutes, 7 days a week."
         />
         <InfoTile
           icon={<Stethoscope className="h-4 w-4" />}
           title="AHPRA-registered GPs"
-          body="Australian trained and registered."
+          body="All doctors are verified Australian-registered practitioners."
         />
         <InfoTile
           icon={<Shield className="h-4 w-4" />}
-          title="Bulk-billed if eligible"
-          body="Otherwise $39.95 AUD."
+          title="$59 AUD or bulk-billed"
+          body="Bulk-billed with a valid Medicare card where eligible."
         />
       </div>
+
+      {/* How it works */}
+      <Card className="mb-6">
+        <CardContent className="p-5">
+          <p className="mb-3 text-sm font-semibold">How OzDoc telehealth works</p>
+          <div className="grid gap-3 sm:grid-cols-4">
+            {[
+              { num: "1", label: "Chat with OzDoc AI", desc: "Describe your symptoms — AI generates a clinical summary" },
+              { num: "2", label: "Book a GP", desc: "Pick a time slot — available in under 30 minutes" },
+              { num: "3", label: "GP reviews summary", desc: "Your AI consultation summary is shared before the call" },
+              { num: "4", label: "Consult + eScript", desc: "Video call with GP, eScript sent to your pharmacy" },
+            ].map((s) => (
+              <div key={s.num} className="flex gap-2.5">
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-ocean-50 text-xs font-bold text-ocean-600 dark:bg-ocean-900/40 dark:text-ocean-400">
+                  {s.num}
+                </div>
+                <div>
+                  <p className="text-xs font-semibold">{s.label}</p>
+                  <p className="text-xs text-muted-foreground">{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* What the GP receives */}
+      <Card className="mb-6 border-ocean-200/50 bg-ocean-50/30 dark:border-ocean-800/40 dark:bg-ocean-950/20">
+        <CardContent className="flex items-start gap-3 p-5">
+          <FileText className="mt-0.5 h-5 w-5 shrink-0 text-ocean-600" />
+          <div>
+            <p className="text-sm font-semibold">AI consultation summary shared with your GP</p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Before your call, the GP receives a structured summary of your OzDoc
+              conversation — presenting complaint, history, medications, and
+              provisional assessment. This means less time repeating yourself and
+              more time on what matters.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
 
       {step === "select" && (
         <>
           <Card>
             <CardHeader>
               <CardTitle>Pick a time</CardTitle>
-              <CardDescription>Times shown in your local timezone.</CardDescription>
+              <CardDescription>Times shown in your local timezone. Most slots available within 30 minutes.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid gap-2 sm:grid-cols-3">
@@ -170,7 +213,7 @@ export default function TelehealthPage() {
                   Bulk-billed with Medicare
                 </Badge>
               ) : (
-                <span className="font-semibold">$39.95 AUD</span>
+                <span className="font-semibold">$59.00 AUD</span>
               )}
             </p>
             <Button
@@ -190,7 +233,7 @@ export default function TelehealthPage() {
             <CardTitle>Your details</CardTitle>
             <CardDescription>
               {formatSlot(selected).date} at {formatSlot(selected).time} —{" "}
-              {bulkBilled ? "Bulk-billed" : "$39.95 AUD"}
+              {bulkBilled ? "Bulk-billed" : "$59.00 AUD"}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -241,14 +284,32 @@ export default function TelehealthPage() {
               <strong>{formatSlot(selected).time}</strong>.
             </p>
             <p className="mt-1 text-sm text-muted-foreground">
-              {bulkBilled ? "Bulk-billed with Medicare." : "$39.95 AUD"}
+              {bulkBilled ? "Bulk-billed with Medicare." : "$59.00 AUD"}
             </p>
+            <div className="mt-4 rounded-xl border border-ocean-200/60 bg-white/50 p-3 text-left dark:border-ocean-800/40 dark:bg-ocean-900/20">
+              <div className="flex items-center gap-2 text-xs font-semibold text-ocean-700 dark:text-ocean-300">
+                <FileText className="h-3.5 w-3.5" />
+                Your AI consultation summary will be shared with the GP
+              </div>
+              <p className="mt-1 text-xs text-muted-foreground">
+                The GP will review your OzDoc conversation summary before the call so they&apos;re prepared.
+              </p>
+            </div>
+            <div className="mt-4 rounded-xl border border-ocean-200/60 bg-white/50 p-3 text-left dark:border-ocean-800/40 dark:bg-ocean-900/20">
+              <div className="flex items-center gap-2 text-xs font-semibold text-ocean-700 dark:text-ocean-300">
+                <Pill className="h-3.5 w-3.5" />
+                eScript delivery available
+              </div>
+              <p className="mt-1 text-xs text-muted-foreground">
+                If medication is prescribed, an eScript will be sent directly to your nominated pharmacy.
+              </p>
+            </div>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link href="/chat">
                 <Button>Back to chat</Button>
               </Link>
-              <Link href="/history">
-                <Button variant="outline">View history</Button>
+              <Link href="/escripts">
+                <Button variant="outline">View eScripts</Button>
               </Link>
             </div>
             <p className="mt-6 text-xs text-muted-foreground">

@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.6
 
 # ──────────────────────────────────────────────────────────────
-# MedMate AI — Production Dockerfile (multi-stage, standalone)
+# OzDoc AI — Production Dockerfile (multi-stage, standalone)
 # ──────────────────────────────────────────────────────────────
 
 FROM node:20-alpine AS deps

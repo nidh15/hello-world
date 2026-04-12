@@ -51,7 +51,7 @@ export function Footer() {
                 <Stethoscope className="h-5 w-5" />
               </span>
               <span className="text-lg font-bold font-display tracking-tight">
-                MedMate{" "}
+                OzDoc{" "}
                 <span className="bg-gradient-to-r from-ocean-500 to-ocean-400 bg-clip-text text-transparent">
                   AI
                 </span>
@@ -63,7 +63,7 @@ export function Footer() {
             </p>
             <div className="mt-5 rounded-xl border border-border/60 bg-card/50 p-3">
               <p className="text-xs leading-relaxed text-muted-foreground">
-                MedMate AI is not a doctor and does not provide medical advice.
+                OzDoc AI is not a doctor and does not provide medical advice.
                 Always consult a qualified healthcare professional. If you are
                 experiencing a medical emergency, call{" "}
                 <a href="tel:000" className="font-semibold text-foreground underline underline-offset-2">
@@ -74,16 +74,20 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Links */}
+          {/* Product links */}
           <div>
-            <h4 className="text-sm font-semibold font-display">MedMate</h4>
+            <h4 className="text-sm font-semibold font-display">Product</h4>
             <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
               {[
                 { href: "/chat", label: "AI Chat" },
                 { href: "/symptom-checker", label: "Symptom checker" },
-                { href: "/telehealth", label: "Telehealth" },
+                { href: "/telehealth", label: "Telehealth ($59)" },
+                { href: "/escripts", label: "eScripts" },
+                { href: "/chronic-care", label: "Chronic care plans" },
+                { href: "/my-health-record", label: "My Health Record" },
                 { href: "/history", label: "Consultation history" },
                 { href: "/profile", label: "Health profile" },
+                { href: "/enterprise", label: "For business" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -134,7 +138,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-border/40 pt-6 text-xs text-muted-foreground md:flex-row md:items-center">
           <p className="flex items-center gap-1.5">
-            &copy; {new Date().getFullYear()} MedMate AI. Made with{" "}
+            &copy; {new Date().getFullYear()} OzDoc AI. Made with{" "}
             <Heart className="h-3 w-3 text-coral-400" /> in Australia.
           </p>
           <div className="flex gap-4">

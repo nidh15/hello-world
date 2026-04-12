@@ -1,9 +1,9 @@
 // ──────────────────────────────────────────────────────────────
-// MedMate AI — Anthropic Claude API client
+// OzDoc AI — Anthropic Claude API client
 // ──────────────────────────────────────────────────────────────
 
 import Anthropic from "@anthropic-ai/sdk";
-import { MEDMATE_SYSTEM_PROMPT, buildProfileContext } from "@/lib/prompts";
+import { OZDOC_SYSTEM_PROMPT, buildProfileContext } from "@/lib/prompts";
 import type { ChatMessage, HealthProfile } from "@/types";
 
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-20250514";
@@ -34,8 +34,8 @@ function toApiMessages(messages: ChatMessage[]): Anthropic.MessageParam[] {
 
 export function buildSystemPrompt(profile: HealthProfile | null): string {
   const profileBlock = buildProfileContext(profile);
-  if (!profileBlock) return MEDMATE_SYSTEM_PROMPT;
-  return `${MEDMATE_SYSTEM_PROMPT}\n\n${profileBlock}`;
+  if (!profileBlock) return OZDOC_SYSTEM_PROMPT;
+  return `${OZDOC_SYSTEM_PROMPT}\n\n${profileBlock}`;
 }
 
 /**
@@ -76,7 +76,7 @@ export async function completeOnce(
   const response = await client.messages.create({
     model: MODEL,
     max_tokens: 1024,
-    system: systemOverride ?? MEDMATE_SYSTEM_PROMPT,
+    system: systemOverride ?? OZDOC_SYSTEM_PROMPT,
     messages: toApiMessages(messages),
   });
 

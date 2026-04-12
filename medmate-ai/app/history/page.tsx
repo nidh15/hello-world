@@ -98,7 +98,7 @@ export default function HistoryPage() {
 
   function handleExport(c: Consultation) {
     const lines: string[] = [
-      `MedMate AI — Consultation export`,
+      `OzDoc AI — Consultation export`,
       `Date: ${formatDate(c.createdAt)}`,
       `Title: ${c.title}`,
       c.triage ? `Triage: ${triageLabels[c.triage].label}` : "",
@@ -112,7 +112,7 @@ export default function HistoryPage() {
       ),
       "",
       `—`,
-      `This is informational only. MedMate AI is not a doctor.`,
+      `This is informational only. OzDoc AI is not a doctor.`,
     ].filter(Boolean);
 
     const blob = new Blob([lines.join("\n")], {
@@ -121,7 +121,7 @@ export default function HistoryPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `medmate-${c.id.slice(0, 8)}.txt`;
+    a.download = `ozdoc-${c.id.slice(0, 8)}.txt`;
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -228,7 +228,7 @@ function EmptyHistory() {
         </div>
         <h2 className="heading text-lg font-bold">No consultations yet</h2>
         <p className="max-w-sm text-sm text-muted-foreground">
-          Your saved consultations will appear here. Start a chat with MedMate
+          Your saved consultations will appear here. Start a chat with OzDoc
           to get going.
         </p>
         <Link href="/chat">

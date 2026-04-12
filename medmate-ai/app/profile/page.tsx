@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2, Save, Plus, X, User } from "lucide-react";
+import { Loader2, Save, Plus, X, User, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -30,6 +30,10 @@ const emptyProfile: HealthProfile = {
   medicareNumber: "",
   emergencyContacts: [],
   consentedToTerms: false,
+  location: null,
+  isIndigenous: false,
+  isRuralRemote: false,
+  myHealthRecordLinked: false,
   updatedAt: new Date().toISOString(),
 };
 
@@ -71,6 +75,10 @@ export default function ProfilePage() {
             medicareNumber: json.profile.medicare_number ?? "",
             emergencyContacts: json.profile.emergency_contacts ?? [],
             consentedToTerms: json.profile.consented_to_terms ?? false,
+            location: json.profile.location ?? null,
+            isIndigenous: json.profile.is_indigenous ?? false,
+            isRuralRemote: json.profile.is_rural_remote ?? false,
+            myHealthRecordLinked: json.profile.my_health_record_linked ?? false,
             updatedAt: json.profile.updated_at,
           });
         }
@@ -119,7 +127,7 @@ export default function ProfilePage() {
         <div>
           <h1 className="heading text-2xl font-bold">Your health profile</h1>
           <p className="text-sm text-muted-foreground">
-            MedMate uses this to personalise every consultation.
+            OzDoc uses this to personalise every consultation.
           </p>
         </div>
       </div>
@@ -226,6 +234,60 @@ export default function ProfilePage() {
                 }
               />
             </Field>
+          </CardContent>
+        </Card>
+
+        {/* Location & background */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Location &amp; background</CardTitle>
+            <CardDescription>
+              Helps OzDoc tailor advice for your area and health context.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Field label="Location (suburb/town, state)">
+              <div className="relative">
+                <MapPin className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground/50" />
+                <Input
+                  className="pl-9"
+                  value={profile.location ?? ""}
+                  onChange={(e) =>
+                    setProfile({ ...profile, location: e.target.value || null })
+                  }
+                  placeholder="e.g. Birdsville, QLD"
+                />
+              </div>
+            </Field>
+            <label className="flex cursor-pointer items-start gap-2.5 rounded-xl border border-border/60 bg-muted/30 p-3 text-sm text-muted-foreground transition-colors hover:bg-muted/50">
+              <input
+                type="checkbox"
+                checked={profile.isRuralRemote}
+                onChange={(e) =>
+                  setProfile({ ...profile, isRuralRemote: e.target.checked })
+                }
+                className="mt-0.5 h-4 w-4 rounded border-border text-ocean-500 focus:ring-ocean-500"
+              />
+              <span className="leading-relaxed">
+                I live in a <strong>rural or remote area</strong> — tailor advice
+                for limited access to GPs, specialists, and pharmacies.
+              </span>
+            </label>
+            <label className="flex cursor-pointer items-start gap-2.5 rounded-xl border border-border/60 bg-muted/30 p-3 text-sm text-muted-foreground transition-colors hover:bg-muted/50">
+              <input
+                type="checkbox"
+                checked={profile.isIndigenous}
+                onChange={(e) =>
+                  setProfile({ ...profile, isIndigenous: e.target.checked })
+                }
+                className="mt-0.5 h-4 w-4 rounded border-border text-ocean-500 focus:ring-ocean-500"
+              />
+              <span className="leading-relaxed">
+                I identify as <strong>Aboriginal and/or Torres Strait Islander</strong>{" "}
+                — include culturally appropriate health information and services
+                (e.g. ACCHS, Medicare item 715 health assessment).
+              </span>
+            </label>
           </CardContent>
         </Card>
 

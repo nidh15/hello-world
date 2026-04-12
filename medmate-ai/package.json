@@ -1,8 +1,8 @@
 {
-  "name": "medmate-ai",
-  "version": "0.1.0",
+  "name": "ozdoc-ai",
+  "version": "0.2.0",
   "private": true,
-  "description": "MedMate AI — Australia's free, private AI health assistant",
+  "description": "OzDoc AI — Australia's free, private AI health assistant with GP escalation, eScripts, and chronic care",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

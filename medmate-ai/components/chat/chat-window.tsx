@@ -233,7 +233,7 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
               New consultation
             </Button>
             <p className="hidden text-xs text-muted-foreground sm:block">
-              MedMate is not a doctor. In an emergency, call{" "}
+              OzDoc is not a doctor. In an emergency, call{" "}
               <a
                 href="tel:000"
                 className="font-semibold text-foreground underline underline-offset-2"
