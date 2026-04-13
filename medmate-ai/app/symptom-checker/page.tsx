@@ -7,6 +7,9 @@ import {
   ArrowLeft,
   ClipboardList,
   CheckCircle2,
+  AlertTriangle,
+  Stethoscope,
+  ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,8 +22,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import type { SymptomCheckerInput } from "@/types";
+import type { SymptomCheckerInput, TriageLevel } from "@/types";
+import type { CDSSOutcome } from "@/lib/cdss";
 
 const BODY_AREAS = [
   "Head & neck",
@@ -102,16 +107,54 @@ export default function SymptomCheckerPage() {
     severity: null,
     relevantHistory: [],
   });
+  const [cdssOutcome, setCdssOutcome] = useState<CDSSOutcome | null>(null);
+  const [cdssLoading, setCdssLoading] = useState(false);
+  const [cdssError, setCdssError] = useState<string | null>(null);
 
-  function next() {
-    setStep((s) => Math.min(s + 1, 5));
+  async function next() {
+    const newStep = Math.min(step + 1, 5);
+    setStep(newStep);
+    // When entering the review step, run the deterministic CDSS.
+    if (newStep === 5 && !cdssOutcome) {
+      await runCdss();
+    }
   }
   function back() {
     setStep((s) => Math.max(s - 1, 1));
   }
 
+  async function runCdss() {
+    setCdssLoading(true);
+    setCdssError(null);
+    try {
+      const res = await fetch("/api/cdss/triage", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          symptoms: input.symptoms,
+          freeText: [input.freeText, ...input.relevantHistory]
+            .filter(Boolean)
+            .join("\n"),
+          durationDays: input.durationDays ?? undefined,
+          severity: input.severity ? input.severity * 2 : undefined, // 1-5 → 1-10
+          bodyArea: input.bodyArea,
+          demographics: {},
+        }),
+      });
+      if (!res.ok) throw new Error(`CDSS responded ${res.status}`);
+      const data = (await res.json()) as { outcome: CDSSOutcome };
+      setCdssOutcome(data.outcome);
+    } catch (err) {
+      setCdssError(
+        err instanceof Error ? err.message : "Failed to run triage engine",
+      );
+    } finally {
+      setCdssLoading(false);
+    }
+  }
+
   function goToChat() {
-    const summary = buildSummary(input);
+    const summary = buildSummary(input, cdssOutcome);
     if (typeof window !== "undefined") {
       sessionStorage.setItem("medmate:symptom-input", summary);
     }
@@ -320,10 +363,11 @@ export default function SymptomCheckerPage() {
           )}
 
           {step === 5 && (
-            <div className="space-y-3 text-sm">
+            <div className="space-y-4 text-sm">
               <p className="text-muted-foreground">
-                Here&apos;s what you&apos;ve told us. Continue to chat with
-                OzDoc for a provisional assessment and clear next step.
+                Here&apos;s what you&apos;ve told us, and OzDoc&apos;s
+                deterministic CDSS triage result. Continue to chat to discuss
+                it in more detail.
               </p>
               <div className="rounded-xl border border-border bg-muted/30 p-4">
                 <ReviewRow label="Body area" value={input.bodyArea || "—"} />
@@ -352,6 +396,35 @@ export default function SymptomCheckerPage() {
                   value={input.relevantHistory.join("; ") || "—"}
                 />
               </div>
+
+              {cdssLoading && (
+                <div className="flex items-center gap-2 rounded-xl border border-border bg-muted/20 p-4 text-muted-foreground">
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-ocean-400 border-t-transparent" />
+                  Running CDSS triage engine…
+                </div>
+              )}
+
+              {cdssError && (
+                <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-red-800 dark:border-red-900/40 dark:bg-red-950/30 dark:text-red-300">
+                  <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+                  <div>
+                    <p className="font-semibold">
+                      Couldn&apos;t run the triage engine
+                    </p>
+                    <p className="mt-1 text-xs">{cdssError}</p>
+                    <button
+                      onClick={runCdss}
+                      className="mt-2 text-xs font-semibold underline"
+                    >
+                      Try again
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {cdssOutcome && !cdssLoading && (
+                <TriageResultCard outcome={cdssOutcome} />
+              )}
             </div>
           )}
         </CardContent>
@@ -395,8 +468,114 @@ function ReviewRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-function buildSummary(input: SymptomCheckerInput): string {
-  const parts: string[] = ["I've just completed a symptom checker. Here's what I filled in:"];
+const TRIAGE_STYLES: Record<
+  TriageLevel,
+  {
+    label: string;
+    tone: string;
+    icon: typeof Stethoscope;
+  }
+> = {
+  emergency: {
+    label: "Emergency — call 000",
+    tone: "border-red-300 bg-red-50 text-red-900 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-200",
+    icon: AlertTriangle,
+  },
+  urgent: {
+    label: "Urgent — same-day care",
+    tone: "border-orange-300 bg-orange-50 text-orange-900 dark:border-orange-900/50 dark:bg-orange-950/30 dark:text-orange-200",
+    icon: AlertTriangle,
+  },
+  "see-gp-soon": {
+    label: "See your GP soon",
+    tone: "border-coral-300 bg-coral-50 text-coral-900 dark:border-coral-900/50 dark:bg-coral-950/30 dark:text-coral-200",
+    icon: Stethoscope,
+  },
+  telehealth: {
+    label: "Telehealth appropriate",
+    tone: "border-ocean-300 bg-ocean-50 text-ocean-900 dark:border-ocean-900/50 dark:bg-ocean-950/30 dark:text-ocean-100",
+    icon: Stethoscope,
+  },
+  "self-care": {
+    label: "Self-care at home",
+    tone: "border-sage-300 bg-sage-50 text-sage-900 dark:border-sage-900/50 dark:bg-sage-950/30 dark:text-sage-100",
+    icon: ShieldCheck,
+  },
+};
+
+function TriageResultCard({ outcome }: { outcome: CDSSOutcome }) {
+  const style = TRIAGE_STYLES[outcome.triage];
+  const Icon = style.icon;
+
+  return (
+    <div className={cn("rounded-2xl border-2 p-5 shadow-warm", style.tone)}>
+      <div className="flex items-start gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/60 dark:bg-black/20">
+          <Icon className="h-5 w-5" />
+        </div>
+        <div className="flex-1">
+          <div className="flex items-center gap-2">
+            <h3 className="heading text-base font-bold">{style.label}</h3>
+            <Badge variant="outline" className="text-[10px]">
+              Confidence: {outcome.confidence}
+            </Badge>
+          </div>
+          <p className="mt-1 text-sm font-semibold opacity-90">
+            {outcome.urgency}
+          </p>
+          <p className="mt-2 text-sm opacity-85">{outcome.careAction.primary}</p>
+        </div>
+      </div>
+
+      {outcome.matchedRules.length > 0 && (
+        <div className="mt-4 border-t border-current/10 pt-3">
+          <p className="text-[11px] font-semibold uppercase tracking-wide opacity-70">
+            Why (matched {outcome.matchedRules.length}{" "}
+            {outcome.matchedRules.length === 1 ? "rule" : "rules"})
+          </p>
+          <ul className="mt-1.5 space-y-1.5">
+            {outcome.matchedRules.slice(0, 3).map((rule) => (
+              <li key={rule.id} className="text-xs opacity-90">
+                <span className="font-semibold">{rule.name}.</span>{" "}
+                <span className="opacity-80">{rule.reason}</span>
+                <span className="mt-0.5 block text-[10px] opacity-60">
+                  Source: {rule.clinicalSource}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="mt-4 border-t border-current/10 pt-3">
+        <p className="text-[11px] font-semibold uppercase tracking-wide opacity-70">
+          Next step
+        </p>
+        <p className="mt-1 text-xs opacity-90">{outcome.careAction.venue}</p>
+        {outcome.careAction.phoneNumber && (
+          <a
+            href={`tel:${outcome.careAction.phoneNumber.replace(/\s/g, "")}`}
+            className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-white/70 px-3 py-1 text-xs font-bold shadow-sm dark:bg-black/30"
+          >
+            Call {outcome.careAction.phoneNumber}
+          </a>
+        )}
+      </div>
+
+      <p className="mt-4 text-[10px] opacity-60">
+        Engine v{outcome.engineVersion} · Rule-based CDSS · {outcome.disclaimer}
+      </p>
+    </div>
+  );
+}
+
+function buildSummary(
+  input: SymptomCheckerInput,
+  outcome: CDSSOutcome | null,
+): string {
+  const parts: string[] = [
+    "I've just completed a symptom checker. Here's what I filled in:",
+  ];
   parts.push(`- Body area: ${input.bodyArea || "not specified"}`);
   const symptoms = [...input.symptoms, input.freeText]
     .filter(Boolean)
@@ -409,12 +588,25 @@ function buildSummary(input: SymptomCheckerInput): string {
         : "not specified"
     }`,
   );
-  parts.push(
-    `- Severity (1-5): ${input.severity ?? "not specified"}`,
-  );
+  parts.push(`- Severity (1-5): ${input.severity ?? "not specified"}`);
   if (input.relevantHistory.length) {
     parts.push(`- Relevant history: ${input.relevantHistory.join("; ")}`);
   }
-  parts.push("\nCan you help me understand what might be going on and what I should do next?");
+
+  if (outcome) {
+    parts.push("");
+    parts.push(
+      `OzDoc's rule-based CDSS (v${outcome.engineVersion}) triaged this as: **${outcome.triage}** — ${outcome.urgency}.`,
+    );
+    if (outcome.matchedRules.length) {
+      parts.push(
+        `Matched rules: ${outcome.matchedRules.map((r) => r.name).join("; ")}.`,
+      );
+    }
+  }
+
+  parts.push(
+    "\nCan you help me understand what might be going on and walk me through the next step?",
+  );
   return parts.join("\n");
 }

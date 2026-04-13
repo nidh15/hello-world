@@ -154,6 +154,12 @@ export function Footer() {
             >
               Terms
             </Link>
+            <Link
+              href="/clinical-governance"
+              className="transition-colors hover:text-foreground"
+            >
+              Clinical governance
+            </Link>
             <a
               href="https://www.healthdirect.gov.au"
               target="_blank"
