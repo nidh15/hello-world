@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/cdss.test.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.30.1",

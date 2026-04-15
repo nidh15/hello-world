@@ -10,7 +10,7 @@
 // "call a nurse line" text.
 
 import type { TriageLevel } from "@/types";
-import type { CareAction } from "./types";
+import type { CareAction } from "./types.ts";
 
 const HEALTHDIRECT = {
   name: "Healthdirect",

@@ -11,7 +11,7 @@
 // complex or ambiguous, the LLM layer should be used to extract
 // structured symptoms (not yet implemented — roadmap).
 
-import type { SymptomCode } from "./types";
+import type { SymptomCode } from "./types.ts";
 
 // ──────────────────────────────────────────────────────────────
 // Keyword → SymptomCode mapping

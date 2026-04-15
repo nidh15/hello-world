@@ -17,15 +17,15 @@
 // "see a GP" outcome with the reason attached.
 
 import type { TriageLevel } from "@/types";
-import { PATHWAYS } from "./pathways";
-import { RULES } from "./rules";
-import { CDSS_ENGINE_VERSION } from "./types";
+import { PATHWAYS } from "./pathways.ts";
+import { RULES } from "./rules.ts";
+import { CDSS_ENGINE_VERSION } from "./types.ts";
 import type {
   CDSSInput,
   CDSSOutcome,
   MatchedRule,
   RuleCategory,
-} from "./types";
+} from "./types.ts";
 
 // Severity ordering — higher number = more urgent.
 const TRIAGE_PRIORITY: Record<TriageLevel, number> = {

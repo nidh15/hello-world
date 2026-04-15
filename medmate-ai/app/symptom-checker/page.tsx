@@ -155,9 +155,20 @@ export default function SymptomCheckerPage() {
   }
 
   function goToChat() {
+    // Persist both the free-text summary (for the LLM handoff) and the
+    // full structured CDSS outcome. The chat page uses the outcome to
+    // surface a red-flag escalation banner for emergency/urgent triage
+    // levels, so the user doesn't have to wait for the LLM response to
+    // see that a 000 call is indicated.
     const summary = buildSummary(input, cdssOutcome);
     if (typeof window !== "undefined") {
       sessionStorage.setItem("medmate:symptom-input", summary);
+      if (cdssOutcome) {
+        sessionStorage.setItem(
+          "medmate:cdss-outcome",
+          JSON.stringify(cdssOutcome),
+        );
+      }
     }
     router.push("/chat?from=symptom-checker");
   }

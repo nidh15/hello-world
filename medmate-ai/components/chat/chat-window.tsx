@@ -5,10 +5,13 @@ import {
   Plus,
   Video,
   AlertCircle,
+  AlertTriangle,
+  Phone,
   Sparkles,
   HeartPulse,
   MessageSquareHeart,
   ArrowRight,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -16,6 +19,7 @@ import { ChatMessage } from "@/components/chat/chat-message";
 import { ChatComposer } from "@/components/chat/chat-composer";
 import { generateId } from "@/lib/utils";
 import type { ChatMessage as ChatMessageType, HealthProfile } from "@/types";
+import type { CDSSOutcome } from "@/lib/cdss";
 
 const SUGGESTIONS = [
   {
@@ -46,6 +50,8 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [cdssOutcome, setCdssOutcome] = useState<CDSSOutcome | null>(null);
+  const [escalationDismissed, setEscalationDismissed] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
@@ -65,7 +71,27 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
       sessionStorage.removeItem("medmate:symptom-input");
       setInput(payload);
     }
+    // Also pick up the structured CDSS outcome so we can surface a
+    // red-flag banner BEFORE the user waits for an LLM response.
+    const rawOutcome = sessionStorage.getItem("medmate:cdss-outcome");
+    if (rawOutcome) {
+      sessionStorage.removeItem("medmate:cdss-outcome");
+      try {
+        const parsed = JSON.parse(rawOutcome) as CDSSOutcome;
+        setCdssOutcome(parsed);
+      } catch {
+        // Malformed payload — ignore silently. Chat still works.
+      }
+    }
   }, []);
+
+  // Show an escalation banner for emergency/urgent CDSS outcomes. This
+  // is the key safety feature: the user never has to read the LLM
+  // response to discover that a 000 call is indicated.
+  const showEscalation =
+    !escalationDismissed &&
+    cdssOutcome != null &&
+    (cdssOutcome.triage === "emergency" || cdssOutcome.triage === "urgent");
 
   const send = useCallback(
     async (text: string) => {
@@ -166,6 +192,12 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
         aria-live="polite"
       >
         <div className="container max-w-3xl py-6">
+          {showEscalation && cdssOutcome && (
+            <EscalationBanner
+              outcome={cdssOutcome}
+              onDismiss={() => setEscalationDismissed(true)}
+            />
+          )}
           {isEmpty ? (
             <EmptyState onPick={(s) => send(s)} profile={profile} />
           ) : (
@@ -251,6 +283,94 @@ export function ChatWindow({ initialMessages = [], profile = null }: Props) {
             loading={streaming}
           />
         </div>
+      </div>
+    </div>
+  );
+}
+
+function EscalationBanner({
+  outcome,
+  onDismiss,
+}: {
+  outcome: CDSSOutcome;
+  onDismiss: () => void;
+}) {
+  const isEmergency = outcome.triage === "emergency";
+  const topRule = outcome.matchedRules[0];
+
+  return (
+    <div
+      role="alert"
+      aria-live="assertive"
+      className={`mb-5 animate-fade-in rounded-2xl border-2 p-4 shadow-warm ${
+        isEmergency
+          ? "border-destructive/60 bg-destructive/5"
+          : "border-amber-500/60 bg-amber-50/80 dark:border-amber-500/40 dark:bg-amber-950/30"
+      }`}
+    >
+      <div className="flex items-start gap-3">
+        <div
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-white shadow-sm ${
+            isEmergency ? "bg-destructive" : "bg-amber-500"
+          }`}
+        >
+          <AlertTriangle className="h-4 w-4" />
+        </div>
+        <div className="flex-1">
+          <p
+            className={`text-sm font-semibold ${
+              isEmergency
+                ? "text-destructive"
+                : "text-amber-900 dark:text-amber-100"
+            }`}
+          >
+            {isEmergency
+              ? "This may be a medical emergency"
+              : "This needs urgent medical attention"}
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            {outcome.urgency}
+          </p>
+          {topRule && (
+            <p className="mt-2 text-xs text-foreground/80">
+              <span className="font-medium">{topRule.name}:</span>{" "}
+              {topRule.reason}
+            </p>
+          )}
+          <div className="mt-3 flex flex-wrap gap-2">
+            {isEmergency && (
+              <a href="tel:000">
+                <Button size="sm" variant="destructive" className="gap-1.5">
+                  <Phone className="h-3.5 w-3.5" />
+                  Call 000 now
+                </Button>
+              </a>
+            )}
+            <Link href="/telehealth?from=chat-escalation">
+              <Button
+                size="sm"
+                variant={isEmergency ? "outline" : "default"}
+                className="gap-1.5"
+              >
+                <Video className="h-3.5 w-3.5" />
+                Book an AHPRA GP now
+              </Button>
+            </Link>
+          </div>
+          <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
+            This warning was raised by OzDoc&apos;s rule-based clinical
+            decision support. It is not a diagnosis — it flags symptoms that
+            clinical guidelines say need urgent review.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onDismiss}
+          className="rounded-lg p-1 text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+          aria-label="Dismiss escalation banner"
+        >
+          <X className="h-4 w-4" />
+        </button>
       </div>
     </div>
   );

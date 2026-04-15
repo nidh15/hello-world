@@ -10,16 +10,27 @@ import {
   Video,
   Pill,
   HeartPulse,
+  ClipboardList,
+  ShieldCheck,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
+  { href: "/symptom-checker", label: "Symptom check", icon: ClipboardList },
   { href: "/chat", label: "AI Chat", icon: MessageSquareHeart },
   { href: "/telehealth", label: "Telehealth", icon: Video },
   { href: "/escripts", label: "eScripts", icon: Pill },
   { href: "/chronic-care", label: "Chronic care", icon: HeartPulse },
+];
+
+const secondaryItems = [
+  {
+    href: "/clinical-governance",
+    label: "Clinical governance",
+    icon: ShieldCheck,
+  },
 ];
 
 export function Nav() {
@@ -115,6 +126,27 @@ export function Nav() {
                 </Link>
               );
             })}
+            <div className="mt-2 border-t border-border pt-2">
+              {secondaryItems.map((item) => {
+                const active = pathname?.startsWith(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-medium transition-colors",
+                      active
+                        ? "bg-ocean-50 text-ocean-700 dark:bg-ocean-900/30 dark:text-ocean-200"
+                        : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                    )}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
             <div className="mt-3 grid grid-cols-2 gap-2 border-t border-border pt-4">
               <Link href="/auth/login" onClick={() => setOpen(false)}>
                 <Button variant="outline" size="sm" className="w-full">

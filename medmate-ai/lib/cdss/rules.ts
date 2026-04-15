@@ -20,7 +20,7 @@
 // evaluates all of them and picks the highest-severity outcome, but
 // listing them by priority keeps the audit trail readable.
 
-import type { Rule } from "./types";
+import type { Rule } from "./types.ts";
 
 export const RULES: Rule[] = [
   // ══════════════════════════════════════════════════════════════
@@ -104,19 +104,21 @@ export const RULES: Rule[] = [
 
   {
     id: "MENINGITIS_TRIAD",
-    name: "Possible meningitis (classical triad)",
-    description: "Fever + headache + neck stiffness.",
+    name: "Possible meningitis (neck stiffness with fever or headache)",
+    description:
+      "Neck stiffness with fever and/or headache — suspicious for meningitis. Neck stiffness is the high-specificity red flag; combined with either fever or headache it must be treated as a time-critical emergency workup.",
     clinicalSource: "RACGP — meningitis red flags",
     category: "red-flag",
     when: (i) =>
-      (i.symptoms.includes("fever") || i.symptoms.includes("fever-high")) &&
-      i.symptoms.includes("headache") &&
-      i.symptoms.includes("neck-stiffness"),
+      i.symptoms.includes("neck-stiffness") &&
+      (i.symptoms.includes("fever") ||
+        i.symptoms.includes("fever-high") ||
+        i.symptoms.includes("headache")),
     outcome: {
       triage: "emergency",
       urgency: "Immediately — ED",
       reason:
-        "Fever, headache and neck stiffness together are the classical meningitis triad and need urgent assessment.",
+        "Neck stiffness with fever or headache is suspicious for meningitis and needs urgent assessment. Do not wait for a rash to appear.",
     },
   },
 
