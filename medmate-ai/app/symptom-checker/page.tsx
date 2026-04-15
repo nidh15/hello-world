@@ -10,6 +10,7 @@ import {
   AlertTriangle,
   Stethoscope,
   ShieldCheck,
+  Video,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -159,6 +160,23 @@ export default function SymptomCheckerPage() {
       sessionStorage.setItem("medmate:symptom-input", summary);
     }
     router.push("/chat?from=symptom-checker");
+  }
+
+  function goToTelehealth() {
+    // Persist both the conversational summary (for chat context) and a
+    // short "reason for consult" string that the telehealth booking page
+    // will pre-fill into its textarea. This closes the Healthdirect gap:
+    // the CDSS result flows straight into a real-time GP booking, which
+    // is the legal requirement under the Medical Board of Australia's
+    // September 2023 guidance — no script or certificate may be issued
+    // without a real-time consult.
+    const summary = buildSummary(input, cdssOutcome);
+    const reason = buildConsultReason(input, cdssOutcome);
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("medmate:symptom-input", summary);
+      sessionStorage.setItem("medmate:telehealth-reason", reason);
+    }
+    router.push("/telehealth?from=symptom-checker");
   }
 
   const symptomsForArea =
@@ -430,7 +448,7 @@ export default function SymptomCheckerPage() {
         </CardContent>
       </Card>
 
-      <div className="mt-6 flex items-center justify-between">
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Button variant="outline" onClick={back} disabled={step === 1}>
           <ArrowLeft className="h-4 w-4" />
           Back
@@ -449,12 +467,34 @@ export default function SymptomCheckerPage() {
             <ArrowRight className="h-4 w-4" />
           </Button>
         ) : (
-          <Button onClick={goToChat}>
-            Continue to chat
-            <ArrowRight className="h-4 w-4" />
-          </Button>
+          // Step 5 — CDSS result is showing. Primary CTA is "Book a real-time
+          // AHPRA GP consult". Chat is secondary because, under the Medical
+          // Board of Australia's September 2023 guidance, prescriptions and
+          // medical certificates cannot be issued from an asynchronous chat
+          // alone — they require a real-time video or audio consult.
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <Button variant="outline" onClick={goToChat}>
+              Discuss in chat first
+            </Button>
+            <Button
+              onClick={goToTelehealth}
+              disabled={cdssLoading || !cdssOutcome}
+              className="bg-gradient-to-r from-ocean-500 to-ocean-600 hover:from-ocean-600 hover:to-ocean-700"
+            >
+              <Video className="h-4 w-4" />
+              Book an AHPRA GP now — $59
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </div>
         )}
       </div>
+
+      {step === 5 && cdssOutcome && (
+        <p className="mt-3 text-center text-[11px] text-muted-foreground">
+          Real-time video consult required before any script or medical
+          certificate can be issued (Medical Board of Australia, Sept 2023).
+        </p>
+      )}
     </div>
   );
 }
@@ -609,4 +649,49 @@ function buildSummary(
     "\nCan you help me understand what might be going on and walk me through the next step?",
   );
   return parts.join("\n");
+}
+
+/**
+ * Build a short "reason for consult" string suitable for pre-filling the
+ * telehealth booking page's textarea. Kept concise — a GP should be able
+ * to read it in under 10 seconds before the consult starts.
+ */
+function buildConsultReason(
+  input: SymptomCheckerInput,
+  outcome: CDSSOutcome | null,
+): string {
+  const lines: string[] = [];
+  const symptoms = [...input.symptoms, input.freeText]
+    .filter(Boolean)
+    .join(", ");
+  if (symptoms) {
+    lines.push(`Symptoms: ${symptoms}.`);
+  }
+  if (input.bodyArea) {
+    lines.push(`Area: ${input.bodyArea}.`);
+  }
+  if (input.durationDays != null) {
+    lines.push(
+      `Duration: ${input.durationDays} day${
+        input.durationDays === 1 ? "" : "s"
+      }.`,
+    );
+  }
+  if (input.severity != null) {
+    lines.push(`Self-rated severity: ${input.severity}/5.`);
+  }
+  if (outcome) {
+    lines.push(
+      `OzDoc CDSS triage: ${outcome.triage} — ${outcome.urgency} (confidence: ${outcome.confidence}).`,
+    );
+    if (outcome.matchedRules.length) {
+      lines.push(
+        `Matched rules: ${outcome.matchedRules
+          .slice(0, 3)
+          .map((r) => r.name)
+          .join("; ")}.`,
+      );
+    }
+  }
+  return lines.join("\n");
 }

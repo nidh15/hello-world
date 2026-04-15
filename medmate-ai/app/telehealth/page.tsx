@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
   Video,
@@ -12,6 +13,7 @@ import {
   Loader2,
   FileText,
   Pill,
+  ClipboardList,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,6 +61,9 @@ function formatSlot(iso: string): { date: string; time: string } {
 }
 
 export default function TelehealthPage() {
+  const searchParams = useSearchParams();
+  const fromSymptomChecker = searchParams.get("from") === "symptom-checker";
+
   const slots = useMemo(generateSlots, []);
   const [selected, setSelected] = useState<string | null>(null);
   const [bulkBilled, setBulkBilled] = useState(false);
@@ -68,6 +73,21 @@ export default function TelehealthPage() {
   const [loading, setLoading] = useState(false);
   const [fullName, setFullName] = useState("");
   const [reason, setReason] = useState("");
+  const [cdssContextLoaded, setCdssContextLoaded] = useState(false);
+
+  // When the user arrives here from the symptom checker, the CDSS result
+  // and a short consult-reason summary are stashed in sessionStorage.
+  // Pre-fill the reason textarea so the GP gets full triage context and
+  // the patient doesn't have to retype anything.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const stored = sessionStorage.getItem("medmate:telehealth-reason");
+    if (stored) {
+      setReason(stored);
+      setCdssContextLoaded(true);
+      sessionStorage.removeItem("medmate:telehealth-reason");
+    }
+  }, []);
 
   async function confirm() {
     setLoading(true);
@@ -89,6 +109,25 @@ export default function TelehealthPage() {
           </p>
         </div>
       </div>
+
+      {(cdssContextLoaded || fromSymptomChecker) && (
+        <Card className="mb-6 border-sage-300/60 bg-sage-50/60 dark:border-sage-900/40 dark:bg-sage-950/20">
+          <CardContent className="flex items-start gap-3 p-4">
+            <ClipboardList className="mt-0.5 h-5 w-5 shrink-0 text-sage-600 dark:text-sage-400" />
+            <div>
+              <p className="text-sm font-semibold">
+                CDSS triage context attached
+              </p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Your symptom checker result — including the matched CDSS rules,
+                urgency, and confidence — will be shared with the GP before
+                your consult. You can edit or add to the &ldquo;reason for
+                consult&rdquo; below.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <div className="mb-6 grid gap-3 sm:grid-cols-3">
         <InfoTile

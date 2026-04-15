@@ -25,6 +25,9 @@ import {
   Cpu,
   ScrollText,
   ExternalLink,
+  UserCheck,
+  Video,
+  Scale,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -324,6 +327,184 @@ export default function ClinicalGovernancePage() {
                 ))}
               </div>
             </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Regulatory framework */}
+      <section className="mb-10">
+        <div className="mb-4 flex items-center gap-2">
+          <Scale className="h-4 w-4 text-ocean-500" />
+          <h2 className="heading text-lg font-bold">
+            How OzDoc fits the Australian regulatory framework
+          </h2>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          {/* TGA / SaMD positioning */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-ocean-500" />
+                <h3 className="heading text-sm font-semibold">
+                  TGA — Software as a Medical Device (SaMD)
+                </h3>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                OzDoc&apos;s AI is positioned as a{" "}
+                <span className="font-semibold text-foreground">
+                  Clinical Decision Support System and digital scribe
+                </span>{" "}
+                — it summarises symptoms, surfaces red flags, and recommends a
+                care venue. It does <span className="italic">not</span>{" "}
+                diagnose, it does <span className="italic">not</span> issue
+                prescriptions, and it does{" "}
+                <span className="italic">not</span> autonomously make
+                treatment decisions. A human AHPRA-registered GP is the
+                decision-maker for every clinical action. This is the
+                regulatory pathway supported by the TGA&apos;s 2024–2025 SaMD
+                reforms — the AI assists a clinician, the clinician is
+                accountable.
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Medical Board Sept 2023 real-time rule */}
+          <Card className="border-amber-300/60 bg-amber-50/40 dark:border-amber-900/40 dark:bg-amber-950/20">
+            <CardContent className="p-5">
+              <div className="flex items-center gap-2">
+                <Video className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                <h3 className="heading text-sm font-semibold">
+                  Medical Board of Australia — September 2023 guidance
+                </h3>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Under the Medical Board&apos;s updated telehealth guidelines
+                (effective September 2023), it is{" "}
+                <span className="font-semibold text-foreground">
+                  unprofessional conduct
+                </span>{" "}
+                for a doctor to prescribe medication or issue a medical
+                certificate based only on a questionnaire or asynchronous
+                chat. OzDoc is built around that rule: the AI gathers
+                history, the CDSS triages, and{" "}
+                <span className="font-semibold text-foreground">
+                  every prescription or certificate is issued only after a
+                  real-time video or audio consult
+                </span>{" "}
+                with an AHPRA-registered GP. The CDSS output is a briefing
+                for the consult, never a substitute for it.
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* AHPRA verification */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex items-center gap-2">
+                <UserCheck className="h-4 w-4 text-ocean-500" />
+                <h3 className="heading text-sm font-semibold">
+                  AHPRA-registered clinicians only
+                </h3>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Every GP accessible through OzDoc telehealth is verified
+                against the public AHPRA register before onboarding, and
+                their registration status is re-checked regularly. Any
+                clinician who loses general or specialist registration is
+                immediately removed from the platform.
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Privacy Act 1988 */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-ocean-500" />
+                <h3 className="heading text-sm font-semibold">
+                  Privacy Act 1988 &amp; Australian Privacy Principles
+                </h3>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Health information is Sensitive Information under the
+                Privacy Act 1988. OzDoc stores health data on Australian
+                servers, follows the 13 Australian Privacy Principles, the{" "}
+                My Health Records Act 2012, and the Notifiable Data Breaches
+                scheme. Conversations are never used to train third-party
+                AI models. See the{" "}
+                <Link
+                  href="/privacy"
+                  className="font-semibold text-foreground underline underline-offset-2"
+                >
+                  privacy page
+                </Link>{" "}
+                for the full breakdown.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Clinical leadership */}
+      <section className="mb-10">
+        <div className="mb-4 flex items-center gap-2">
+          <UserCheck className="h-4 w-4 text-ocean-500" />
+          <h2 className="heading text-lg font-bold">Clinical leadership</h2>
+        </div>
+        <Card>
+          <CardContent className="p-6">
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              OzDoc AU Pty Ltd operates under a clinical governance structure
+              required for any Australian digital health platform that
+              interfaces with AHPRA-registered GPs. The following roles are
+              defined and must be filled (and publicly named) before any
+              clinical launch — this page will be updated with the named
+              appointees.
+            </p>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              {[
+                {
+                  title: "Chief Medical Officer (Medical Director)",
+                  body: "Senior Australian-registered GP (RACGP Fellow or equivalent) responsible for overall clinical safety, rule-set sign-off, and the clinical incident response process. Signs off every version of the CDSS knowledge base before release.",
+                },
+                {
+                  title: "Clinical Advisory Panel",
+                  body: "Panel of practising GPs, emergency physicians, pharmacists, and mental-health clinicians who review new rules, red-flag coverage, and care pathways against RACGP Red Book, eTG Therapeutic Guidelines, and the Australasian Triage Scale.",
+                },
+                {
+                  title: "Privacy Officer",
+                  body: "Accountable for Privacy Act 1988 compliance, Notifiable Data Breach response, My Health Records Act obligations, and the APP-compliant privacy policy. Acts as the OAIC point of contact.",
+                },
+                {
+                  title: "Software Sponsor (TGA)",
+                  body: "OzDoc AU Pty Ltd is the Australian-resident sponsor for the software under the TGA's SaMD framework. The sponsor is responsible for the TGA 'is my software a medical device?' self-assessment, and for ARTG registration if and when the product crosses from consumer decision support into a regulated device.",
+                },
+              ].map((role) => (
+                <div
+                  key={role.title}
+                  className="rounded-xl border border-border/60 bg-muted/20 p-4"
+                >
+                  <h3 className="heading text-sm font-semibold">
+                    {role.title}
+                  </h3>
+                  <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+                    {role.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 text-xs text-muted-foreground">
+              Clinicians interested in any of these roles — or in joining the
+              Clinical Advisory Panel as a rule reviewer — can contact{" "}
+              <a
+                href="mailto:clinical@ozdoc.au"
+                className="font-semibold text-foreground underline underline-offset-2"
+              >
+                clinical@ozdoc.au
+              </a>
+              .
+            </p>
           </CardContent>
         </Card>
       </section>

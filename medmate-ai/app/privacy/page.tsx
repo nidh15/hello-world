@@ -5,6 +5,7 @@ import {
   Trash2,
   UserCheck,
   Scale,
+  ShieldCheck,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -33,6 +34,16 @@ const SECTIONS = [
     icon: UserCheck,
     title: "AHPRA-registered doctors only",
     body: "All telehealth GPs available through OzDoc are verified AHPRA-registered medical practitioners. We check registration status regularly against the public AHPRA register.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Professional indemnity & cyber insurance",
+    body: "OzDoc AU Pty Ltd carries medical malpractice / professional indemnity insurance appropriate to a digital health platform, and cyber liability insurance covering data breach response and business-interruption. All contracted AHPRA-registered GPs consulting through OzDoc must also hold their own individual professional indemnity cover that meets the Medical Board of Australia's registration requirements.",
+  },
+  {
+    icon: Trash2,
+    title: "Breach response & notification",
+    body: "If a notifiable data breach occurs, we will notify affected users and the Office of the Australian Information Commissioner (OAIC) in line with the Notifiable Data Breaches scheme under Part IIIC of the Privacy Act 1988. A written incident response plan is reviewed annually by our Privacy Officer.",
   },
   {
     icon: Scale,
