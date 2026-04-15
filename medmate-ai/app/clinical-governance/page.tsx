@@ -503,6 +503,14 @@ export default function ClinicalGovernancePage() {
               >
                 clinical@ozdoc.au
               </a>
+              . For the full list of seats, responsibilities, and the review
+              process, see the{" "}
+              <Link
+                href="/clinical-governance/advisory-panel"
+                className="font-semibold text-foreground underline underline-offset-2"
+              >
+                Clinical Advisory Panel page
+              </Link>
               .
             </p>
           </CardContent>

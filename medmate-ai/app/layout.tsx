@@ -4,6 +4,7 @@ import "./globals.css";
 import { Nav } from "@/components/layout/nav";
 import { Footer } from "@/components/layout/footer";
 import { DisclaimerBanner } from "@/components/layout/disclaimer-banner";
+import { DisclaimerModal } from "@/components/layout/disclaimer-modal";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -63,6 +64,7 @@ export default function RootLayout({
         className={`${fraunces.variable} ${dmSans.variable} font-body antialiased`}
       >
         <div className="grain" aria-hidden />
+        <DisclaimerModal />
         <DisclaimerBanner />
         <Nav />
         <main className="min-h-[calc(100vh-8rem)]">{children}</main>

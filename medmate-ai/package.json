@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test tests/cdss.test.ts"
+    "test": "node --experimental-strip-types --test tests/cdss.test.ts tests/safety.test.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.30.1",
